@@ -1,0 +1,42 @@
+
+<div *ngIf="entry">
+    <h2><span jhiTranslate="blogApp.entry.detail.title">Entry</span> {{entry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span jhiTranslate="blogApp.entry.title">Title</span></dt>
+        <dd>
+            <span>{{entry.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="blogApp.entry.content">Content</span></dt>
+        <dd>
+            <span>{{entry.content}}</span>
+        </dd>
+        <dt><span jhiTranslate="blogApp.entry.date">Date</span></dt>
+        <dd>
+            <span>{{entry.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="blogApp.entry.blog">Blog</span></dt>
+        <dd>
+            <a uiSref="blog-detail" [uiParams]="{id:entry.blog?.id}">{{entry.blog?.name}}</a>
+        </dd>
+        <dt><span jhiTranslate="blogApp.entry.tag">Tag</span></dt>
+        <dd>
+            <span *ngFor="let tag of entry.tags">
+                <a uiSref="tag-detail" [uiParams]="{id: tag.id}">{{tag.name}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            uiSref="entry"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            uiSref="entry.edit" [uiParams]="{ id: entry.id }"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

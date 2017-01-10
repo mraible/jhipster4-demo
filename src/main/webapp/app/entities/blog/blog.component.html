@@ -1,0 +1,64 @@
+<div>
+    <h2><span jhiTranslate="blogApp.blog.home.title">Blogs</span>
+        <button class="btn btn-primary float-xs-right" uiSref="blog.new">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="blogApp.blog.home.createLabel">
+            Create new Blog
+            </span>
+        </button></h2>
+    <jhi-alert></jhi-alert>
+
+    <div class="container-fluid">
+        <div class="row">
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="blogs">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="blogApp.blog.name">Name</span></th>
+            <th><span jhiTranslate="blogApp.blog.handle">Handle</span></th>
+            <th><span jhiTranslate="blogApp.blog.user">User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let blog of blogs ;trackBy trackId">
+                <td><a uiSref="blog-detail" [uiParams]="{ id: blog.id }">{{blog.id}}</a></td>
+                <td>{{blog.name}}</td>
+                <td>{{blog.handle}}</td>
+                <td>
+                    {{blog.user?.login}}
+                </td>
+                <td class="text-xs-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                uiSref="blog-detail"
+                                [uiParams]="{ id: blog.id }"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-xs hidden-sm" jhiTranslate="entity.action.view"></span>
+                        </button>
+                        <button type="submit"
+                                uiSref="blog.edit"
+                                [uiParams]="{ id: blog.id }"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-xs hidden-sm" jhiTranslate="entity.action.edit"></span>
+                        </button>
+                        <button type="submit"
+                                uiSref="blog.delete"
+                                [uiParams]="{ id: blog.id }"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-xs hidden-sm" jhiTranslate="entity.action.delete"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

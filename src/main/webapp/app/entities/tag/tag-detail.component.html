@@ -1,0 +1,24 @@
+
+<div *ngIf="tag">
+    <h2><span jhiTranslate="blogApp.tag.detail.title">Tag</span> {{tag.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span jhiTranslate="blogApp.tag.name">Name</span></dt>
+        <dd>
+            <span>{{tag.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            uiSref="tag"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            uiSref="tag.edit" [uiParams]="{ id: tag.id }"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
