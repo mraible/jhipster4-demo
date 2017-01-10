@@ -351,6 +351,8 @@ Open `entry-dialog.component.html` and change the `<input>` field for `content` 
           rows="5" required></textarea>
 ----
 
+==== Allow HTML
+
 If you enter HTML in this field, you'll notice it's escaped on the list screen.
 
 .Escaped HTML
@@ -376,6 +378,8 @@ After making this change, you'll see that the HTML is no longer escaped.
 
 .HTML in entries
 image::static/entries-with-html.png[Escaped HTML, 1216, scaledwidth=100%]
+
+==== Improve the layout
 
 To make the list of entries look like a blog, replace `<div class="table-responsive">` and its inner `<table>` with HTML so that renders it in a single column.
 
