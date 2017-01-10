@@ -486,6 +486,10 @@ I ran `heroku open`, logged as `admin` and was pleased to see it worked!
 .JHipster 4 demo on Heroku
 image::static/jhipster4-demo-heroku.png[JHipster 4 demo on Heroku, 1122, scaledwidth=100%]
 
+== Source Code
+
+The source code for this project is available on GitHub at https://github.com/mraible/jhipster4-demo.
+
 == Learn More
 
 I hope you've enjoyed learning how JHipster can help you develop hip web applications! It's a nifty project, with an easy-to-use entity generator, a pretty UI and many Spring Boot best-practice patterns. The project team follows five simple https://jhipster.github.io/policies/[policies], paraphrased here:
