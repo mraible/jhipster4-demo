@@ -1,5 +1,4 @@
-= What's New in JHipster 4
-// or Get Started with JHipster 4?
+= Get Started with JHipster 4
 :author: Matt Raible
 :email:  matt@raibledesigns.com
 :revnumber: 1.0
@@ -172,8 +171,8 @@ For each entity you want to create, you will need:
 * a JPA entity class;
 * a Spring Data `JpaRepository` interface;
 * a Spring MVC `RestController` class;
-* an Angular router, controller and service; and
-* a HTML page.
+* an Angular model, state, component, modals, service; and
+* several HTML pages for each component.
 
 In addition, you should have integration tests to verify that everything works and performance tests to verify that it runs fast. In an ideal world, you'd also have unit tests and integration tests for your Angular code.
 
@@ -251,6 +250,8 @@ From these screenshots, you can see that users can see each other's data, and mo
 
 == Add Business Logic
 
+TIP: To configure Eclipse with your JHipster project, see https://jhipster.github.io/configuring-ide-eclipse/[Configuring Eclipse with Maven].
+
 To add more security around blogs and entries, open `BlogResource.java` and find the `getAllBlogs()` method. Change the following line:
 
 [source,java]
@@ -321,12 +322,180 @@ git add .
 git commit -m "Add business logic"
 ----
 
-
+This doesn't look like a blog and it doesn't allow HTML.
 
 == Make UI Enhancements
 
+When doing UI development on a JHipster-generated application, it's nice to see your changes as soon as you save a file. JHipster 4 uses https://www.browsersync.io/[Browsersync] and https://webpack.github.io/[webpack] to power this feature. To enable it, run the following command in the `blog` directory.
+
+----
+npm start
+----
+
+Running this command will open your default browser and navigate to http://localhost:9000.
+
+In this section, you'll change the following:
+
+. Change the content field in an entry from `<input>` to a `<textarea>`
+. Change the rendered content field to display HTML
+. Change the list of entries to look like a blog
+
+==== Content as textarea
+
+Open `entry-dialog.component.html` and change the `<input>` field for `content` to a `<textarea>`. After making this change, it should look as follows:
+
+[source,html]
+.src/main/webapp/app/entities/entry/entry-dialog.component.html
+----
+<textarea class="form-control" name="content" id="field_content" [(ngModel)]="entry.content"
+          rows="5" required></textarea>
+----
+
+If you enter HTML in this field, you'll notice it's escaped on the list screen.
+
+.Escaped HTML
+image::static/entries-with-html-escaped.png[Escaped HTML, 1216, scaledwidth=100%]
+
+To change this behavior, open `entry.component.html` and change the following line:
+
+[source,html]
+.src/main/webapp/app/entities/entry/entry.component.html
+----
+<td>{{entry.content}}</td>
+----
+
+To:
+
+[source,html]
+.src/main/webapp/app/entities/entry/entry.component.html
+----
+<td [innerHTML]="entry.content"></td>
+----
+
+After making this change, you'll see that the HTML is no longer escaped.
+
+.HTML in entries
+image::static/entries-with-html.png[Escaped HTML, 1216, scaledwidth=100%]
+
+To make the list of entries look like a blog, replace `<div class="table-responsive">` and its inner `<table>` with HTML so that renders it in a single column.
+
+[source,html]
+.src/main/webapp/app/entities/entry/entry.component.html
+----
+<div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+    <div *ngFor="let entry of entries; trackBy trackId">
+        <h2>{{entry.title}}</h2>
+        <small>Posted on {{entry.date | date: 'short'}} by {{entry.blog.user.login}}</small>
+        <div [innerHTML]="entry.content"></div>
+        <div class="btn-group mb-2 mt-1">
+            <button type="submit"
+                    uiSref="entry.edit" [uiParams]="{ id: entry.id }"
+                    class="btn btn-sm btn-primary">
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                translate="entity.action.edit"> Edit</span>
+            </button>
+            <button type="submit"
+                    uiSref="entry.delete"
+                    [uiParams]="{ id: entry.id }"
+                    class="btn btn-sm btn-danger">
+                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+            </button>
+        </div>
+    </div>
+</div>
+----
+
+Now it looks more like a regular blog!
+
+.Blog entries
+image::static/blog-entries.png[Blog entries, 1122, scaledwidth=100%]
+
 == Deploy to the Cloud
+
+A JHipster application can be deployed anywhere a Spring Boot application can be deployed.
+
+JHipster ships with support for deploying to https://jhipster.github.io/cloudfoundry/[Cloud Foundry], https://jhipster.github.io/heroku/[Heroku], https://jhipster.github.io/kubernetes/[Kubernetes], https://jhipster.github.io/aws/[AWS], and https://jhipster.github.io/boxfuse/AWS with Boxfuse]. I'm using Heroku in this example because it doesn't cost me anything to host it.
+
+When you prepare a JHipster application for
+production, it's recommended to use the pre-configured "`production`" profile. With Maven, you can package your
+application by specifying this profile when building.
+
+----
+mvn -Pprod package
+----
+
+The production profile is used to build an optimized JavaScript client. You can invoke this using Gulp by running `yarn run webpack:prod`.
+The production profile also configures gzip compression with a servlet filter, cache headers, and monitoring via
+https://github.com/dropwizard/metrics[Metrics]. If you have a http://graphite.wikidot.com/[Graphite] server configured in
+your `application-prod.yaml` file, your application will automatically send metrics data to it.
+
+To upload this blog application, I logged in to my Heroku account using `heroku login` from the command line. I already had the https://devcenter.heroku.com/articles/heroku-command-line[Heroku CLI] installed.
+
+----
+$ heroku login
+Enter your Heroku credentials.
+Email: matt@raibledesigns.com
+Password (typing will be hidden):
+Logged in as matt@raibledesigns.com
+----
+
+I ran `yo jhipster:heroku` as recommended in the http://jhipster.github.io/heroku/[Deploying to Heroku] documentation. I used the name "`jhipster4-demo`" for my application when prompted.
+
+----
+$ yo jhipster:heroku
+Heroku configuration is starting
+? Name to deploy as: jhipster4-demo
+? On which region do you want to deploy ? us
+
+Using existing Git repository
+
+Installing Heroku CLI deployment plugin
+
+Creating Heroku application and setting up node environment
+heroku create jhipster-4-demo
+https://jhipster-4-demo.herokuapp.com/ | https://git.heroku.com/jhipster-4-demo.git
+
+Provisioning addons
+Created heroku-postgresql --as DATABASE
+
+Creating Heroku deployment files
+   create src/main/resources/config/bootstrap-heroku.yml
+   create src/main/resources/config/application-heroku.yml
+   create Procfile
+
+Building application
+...
+remote:        https://jhipster-4-demo.herokuapp.com/ deployed to Heroku
+remote:
+-----> Done
+
+Your app should now be live. To view it run
+	heroku open
+And you can view the logs with this command
+	heroku logs --tail
+After application modification, redeploy it with
+	yo jhipster:heroku
+----
+
+I ran `heroku open`, logged as `admin` and was pleased to see it worked!
+
+.JHipster 4 demo on Heroku
+image::static/jhipster4-demo-heroku.png[JHipster 4 demo on Heroku, 1122, scaledwidth=100%]
 
 == Learn More
 
-About the Author: **Matt Raible** is a web developer and Java Champion. He loves to architect and build slick-looking UIs using CSS and JavaScript. When he's not evangelizing https://stormpath.com[Stormpath] and open source, he likes to ski with his family, drive his VWs and enjoy craft beer. He blogs on https://stormpath.com/blog[stormpath.com/blog], his https://raibledesigns.com/[personal blog], and you can find him on Twitter (https://twitter.com/mraible[@mraible]). He also authors the https://www.infoq.com/minibooks/jhipster-2-mini-book[JHipster Mini-Book] for InfoQ.
+I hope you've enjoyed learning how JHipster can help you develop hip web applications! It's a nifty project, with an easy-to-use entity generator, a pretty UI and many Spring Boot best-practice patterns. The project team follows five simple https://jhipster.github.io/policies/[policies], paraphrased here:
+
+1. The development team votes on policies.
+2. JHipster uses technologies with their default configurations as much as possible.
+3. Only add options when there is sufficient added value in the generated code.
+4. For the Java code, follow the default IntelliJ IDEA formatting and coding guidelines.
+5. Use strict versions for third-party libraries.
+
+These policies help the project maintain its sharp edge and streamline its development process. If you have features you'd like to add or if you'd like to refine existing features, you can https://github.com/jhipster/generator-jhipster[watch the project on GitHub] and https://github.com/jhipster/generator-jhipster/blob/master/CONTRIBUTING.md[help with its development] and support. We're always looking for help!
+
+Now that you've learned how to use Angular, Bootstrap 4, and Spring Boot with JHipster, go forth and develop great applications!
+
+== About the author
+
+Matt Raible is a web developer and Java Champion. He loves to architect and build slick-looking UIs using CSS and JavaScript. When he's not evangelizing https://stormpath.com[Stormpath] and open source, he likes to ski with his family, drive his VWs and enjoy craft beer. He blogs on https://stormpath.com/blog[stormpath.com/blog], his https://raibledesigns.com/[personal blog], and you can find him on Twitter (https://twitter.com/mraible[@mraible]). He is a developer on the JHipster team and authored the https://www.infoq.com/minibooks/jhipster-2-mini-book[JHipster Mini-Book] for InfoQ.
