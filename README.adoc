@@ -1,5 +1,5 @@
 = What's New in JHipster 4
-
+// or Get Started with JHipster 4?
 :author: Matt Raible
 :email:  matt@raibledesigns.com
 :revnumber: 1.0
@@ -37,7 +37,7 @@ endif::[]
 
 .Source Code
 ****
-If you'd like to get right to it, the https://github.com/mraible/jhipster4-demo[source is on GitHub]. To run the app, use `./mvnw`. To test it, run `./mvnw test`. To run its integration tests, run `./mvnw` in one terminal and `npm run e2e` in another.
+If you'd like to get right to it, the https://github.com/mraible/jhipster4-demo[source is on GitHub]. To run the app, use `./mvnw`. To test it, run `./mvnw test`. To run its integration tests, run `./mvnw` in one terminal and `yarn run e2e` in another.
 ****
 
 == What is JHipster?
@@ -52,7 +52,7 @@ JHipster 4 is the same JHipster many developers know and love, with a couple bri
 
 NOTE: When I say "AngularJS", I mean Angular 1.x. "Angular" is the forward-looking name for Angular 2 and beyond.
 
-== Get Started with JHipster 4
+== Installing JHipster 4
 
 The http://jhipster.github.io/installation/[Installing JHipster] instructions show you all the tools you'll need to use a released version of JHipster. These instructions have not been updated for JHipster 4, so here's the abbreviated version.
 
@@ -64,7 +64,7 @@ The http://jhipster.github.io/installation/[Installing JHipster] instructions sh
 
 [source]
 ----
-npm install -g yo
+yarn global add yo
 ----
 
 Since JHipster 4 is not released yet, you'll need to clone its GitHub repository to create a project with it.
@@ -148,6 +148,20 @@ And it allows you to see the Swagger docs associated with its API.
 
 .Swagger docs
 image::static/swagger-docs.png[Swagger docs, 1437, scaledwidth=100%]
+
+You can run the following command (in a separate terminal window) to run the Protractor tests and confirm everything is working properly.
+
+----
+yarn run e2e
+----
+
+At this point, it's a good idea to check your project into Git so you can easily see what changes are made going forward.
+
+----
+git init
+git add .
+git commit -m "Project created"
+----
 
 == Generate Entities
 
