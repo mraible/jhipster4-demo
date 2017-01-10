@@ -13,54 +13,25 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="entries">
-        <table class="table table-striped">
-            <thead>
-            <tr jh-sort (predicate)="predicate" (ascending)="reverse" (callback)="reset">
-            <th jh-sort-by="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jh-sort-by="title"><span jhiTranslate="blogApp.entry.title">Title</span> <span class="fa fa-sort"></span></th>
-            <th jh-sort-by="content"><span jhiTranslate="blogApp.entry.content">Content</span> <span class="fa fa-sort"></span></th>
-            <th jh-sort-by="date"><span jhiTranslate="blogApp.entry.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jh-sort-by="blog.name"><span jhiTranslate="blogApp.entry.blog">Blog</span> <span class="fa fa-sort"></span></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let entry of entries ;trackBy trackId">
-                <td><a uiSref="entry-detail" [uiParams]="{ id: entry.id }">{{entry.id}}</a></td>
-                <td>{{entry.title}}</td>
-                <td>{{entry.content}}</td>
-                <td>{{entry.date | date:'medium'}}</td>
-                <td>
-                    <a uiSref="blog-detail" [uiParams]="{ id: entry.blog?.id }">{{entry.blog?.name}}</a>
-                </td>
-                <td class="text-xs-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                uiSref="entry-detail"
-                                [uiParams]="{ id: entry.id }"
-                                class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="hidden-xs hidden-sm" jhiTranslate="entity.action.view"></span>
-                        </button>
-                        <button type="submit"
-                                uiSref="entry.edit"
-                                [uiParams]="{ id: entry.id }"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="hidden-xs hidden-sm" jhiTranslate="entity.action.edit"></span>
-                        </button>
-                        <button type="submit"
-                                uiSref="entry.delete"
-                                [uiParams]="{ id: entry.id }"
-                                class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="hidden-xs hidden-sm" jhiTranslate="entity.action.delete"></span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <div *ngFor="let entry of entries; trackBy trackId">
+            <h2>{{entry.title}}</h2>
+            <small>Posted on {{entry.date | date: 'short'}} by {{entry.blog.user.login}}</small>
+            <div [innerHTML]="entry.content"></div>
+            <div class="btn-group mb-2 mt-1">
+                <button type="submit"
+                        uiSref="entry.edit" [uiParams]="{ id: entry.id }"
+                        class="btn btn-sm btn-primary">
+                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                    translate="entity.action.edit"> Edit</span>
+                </button>
+                <button type="submit"
+                        uiSref="entry.delete"
+                        [uiParams]="{ id: entry.id }"
+                        class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                </button>
+            </div>
+        </div>
     </div>
 </div>

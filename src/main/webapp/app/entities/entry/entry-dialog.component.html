@@ -28,9 +28,8 @@
     </div>
         <div class="form-group">
         <label class="form-control-label" jhiTranslate="blogApp.entry.content" for="field_content">Content</label>
-    <input type="text" class="form-control" name="content" id="field_content"
-           [(ngModel)]="entry.content"
-    required />
+    <textarea class="form-control" name="content" id="field_content" [(ngModel)]="entry.content"
+              rows="5" required></textarea>
     <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
         <small class="form-text text-danger"
            [hidden]="!editForm.controls.content?.errors?.required" jhiTranslate="entity.validation.required">
