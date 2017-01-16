@@ -51,7 +51,7 @@ JHipster 4 is the same JHipster many developers know and love, with a couple bri
 
 NOTE: When I say "AngularJS", I mean Angular 1.x. "Angular" is the forward-looking name for Angular 2 and beyond.
 
-== Installing JHipster 4
+== Install JHipster 4
 
 The http://jhipster.github.io/installation/[Installing JHipster] instructions show you all the tools you'll need to use a released version of JHipster. These instructions have not been updated for JHipster 4, so here's the abbreviated version.
 
