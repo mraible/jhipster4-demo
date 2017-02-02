@@ -20,5 +20,15 @@
 
     <cache alias="org.jhipster.domain.User.persistentTokens" uses-template="simple"/>
 
+    <cache alias="org.jhipster.domain.Blog" uses-template="simple"/>
+
+    <cache alias="org.jhipster.domain.Entry" uses-template="simple"/>
+
+    <cache alias="org.jhipster.domain.Entry.tags" uses-template="simple"/>
+
+    <cache alias="org.jhipster.domain.Tag" uses-template="simple"/>
+
+    <cache alias="org.jhipster.domain.Tag.entries" uses-template="simple"/>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </config>

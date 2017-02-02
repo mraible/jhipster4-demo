@@ -178,7 +178,7 @@ Below is the entity diagram and JDL code needed to generate a simple blog with b
 .Blog entity diagram
 image::static/jdl-studio.png[Blog entity diagram, 1283, scaledwidth=100%]
 
-You can http://bit.ly/jhipster-blog-jdl[click on this URL], or copy/paste the contents of the file below to your hard drive if you'd like to follow along.
+You can http://bit.ly/jhipster4-blog-jdl[click on this URL], or copy/paste the contents of the file below to your hard drive if you'd like to follow along.
 
 .jhipster-jdl.jh
 ----
@@ -189,7 +189,7 @@ entity Blog {
 
 entity Entry {
 	title String required,
-	content String required,
+	content TextBlob required,
 	date ZonedDateTime required
 }
 
@@ -198,10 +198,7 @@ entity Tag {
 }
 
 relationship ManyToOne {
-	Blog{user(login)} to User
-}
-
-relationship ManyToOne {
+	Blog{user(login)} to User,
 	Entry{blog(name)} to Blog
 }
 
@@ -212,26 +209,15 @@ relationship ManyToMany {
 paginate Entry, Tag with infinite-scroll
 ----
 
-In order to use the JHipster 4 entity generator, you **must run the following command** within your project. If you don't, the JHipster 3.x entity generator will be used and you'll end up with a bunch of AngularJS code in your project.
-
-----
-npm link generator-jhipster
-----
-
 Run the following command (in the `blog` directory) to import this file and generate entities, tests and a UI.
 
 ----
 yo jhipster:import-jdl ~/Downloads/jhipster-jdl.jh
 ----
 
-You'll be prompted to overwrite `src/main/resources/config/liquibase/master.xml`. Type `a` to overwrite this file, as well as others. At the end, you might see the following output, which you can ignore. The entity sub-generator for JHipster 4 is still a work-in-progress.
+You'll be prompted to overwrite `src/main/resources/config/liquibase/master.xml`. Type `a` to overwrite this file, as well as others.
 
-----
-[10:26:44] Local gulp not found in ~/dev/blog
-[10:26:44] Try running: npm install gulp
-----
-
-Start the application with `/.mvnw` and you should be able to view the UI for the generated entities. Create a couple blogs for the existing `admin` and `user` users, as well as a few blog entries.
+Restart the application with `/.mvnw` and run `yarn start` to view the UI for the generated entities. Create a couple blogs for the existing `admin` and `user` users, as well as a few blog entries.
 
 .Blogs
 image::static/blogs.png[Blogs, 1157, scaledwidth=100%]
@@ -243,7 +229,7 @@ From these screenshots, you can see that users can see each other's data, and mo
 
 == Add Business Logic
 
-TIP: To configure Eclipse with your JHipster project, see https://jhipster.github.io/configuring-ide-eclipse/[Configuring Eclipse with Maven].
+TIP: To configure an IDE with your JHipster project, see https://jhipster.github.io/configuring-ide/[Configuring your IDE]. Instructions exist for Eclipse, IntelliJ IDEA, Visual Studio Code, and NetBeans.
 
 To add more security around blogs and entries, open `BlogResource.java` and find the `getAllBlogs()` method. Change the following line:
 
@@ -274,7 +260,7 @@ public interface BlogRepository extends JpaRepository<Blog,Long> {
 }
 ----
 
-After making this change, re-compiling `BlogResource` should trigger a restart of the application thanks to http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html[Spring Boot's Developer tools]. If you navigate to http://localhost:8080/blogs, you should only see the blog for the current user.
+After making this change, re-compiling `BlogResource` should trigger a restart of the application thanks to http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html[Spring Boot's Developer tools]. If you navigate to http://localhost:9000/blogs, you should only see the blog for the current user.
 
 .Admin's blog
 image::static/blogs-admin.png[Admin's blog, 1157, scaledwidth=100%]
