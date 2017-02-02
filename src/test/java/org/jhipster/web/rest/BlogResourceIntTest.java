@@ -1,10 +1,9 @@
 package org.jhipster.web.rest;
 
 import org.jhipster.BlogApp;
-
 import org.jhipster.domain.Blog;
 import org.jhipster.repository.BlogRepository;
-
+import org.jhipster.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -46,6 +46,9 @@ public class BlogResourceIntTest {
     private BlogRepository blogRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -73,10 +76,11 @@ public class BlogResourceIntTest {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static Blog createEntity(EntityManager em) {
+    public Blog createEntity(EntityManager em) {
         Blog blog = new Blog()
                 .name(DEFAULT_NAME)
-                .handle(DEFAULT_HANDLE);
+                .handle(DEFAULT_HANDLE)
+                .user(userRepository.findOneByLogin("user").get());
         return blog;
     }
 
@@ -163,6 +167,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void getAllBlogs() throws Exception {
         // Initialize the database
         blogRepository.saveAndFlush(blog);
