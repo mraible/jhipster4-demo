@@ -121,7 +121,7 @@ The project creation process will take a couple minutes to run, depending on you
 .Generation success
 image::static/generation-success.png[Generation success, 1082, scaledwidth=100%]
 
-Run `/.mvnw` to start the application and navigate to http://localhost:8080 in your favorite browser. The first thing you'll notice is a dapper-looking fellow explaining how you can sign in or register.
+Run `./mvnw` to start the application and navigate to http://localhost:8080 in your favorite browser. The first thing you'll notice is a dapper-looking fellow explaining how you can sign in or register.
 
 .Default homepage
 image::static/default-homepage.png[Default homepage, 1367, scaledwidth=100%]
