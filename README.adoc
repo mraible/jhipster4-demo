@@ -428,7 +428,61 @@ The production profile also configures gzip compression with a servlet filter, c
 https://github.com/dropwizard/metrics[Metrics]. If you have a http://graphite.wikidot.com/[Graphite] server configured in
 your `application-prod.yaml` file, your application will automatically send metrics data to it.
 
-To upload this blog application, I logged in to my Heroku account using `heroku login` from the command line. I already had the https://devcenter.heroku.com/articles/heroku-command-line[Heroku CLI] installed.
+When you run this command, you'll likely get a test failure.
+
+----
+Results :
+
+Tests in error:
+  BlogResourceIntTest.getAllBlogs:171 » NestedServlet Request processing failed;...
+
+Tests run: 62, Failures: 0, Errors: 1, Skipped: 0
+----
+
+The reason this happens is shown in a stack trace in your terminal
+
+----
+getAllBlogs(org.jhipster.web.rest.BlogResourceIntTest)  Time elapsed: 0.041 sec  <<< ERROR!
+org.springframework.web.util.NestedServletException: Request processing failed; nested exception is
+org.springframework.dao.InvalidDataAccessApiUsageException: Authentication object cannot be null;
+nested exception is java.lang.IllegalArgumentException: Authentication object cannot be null
+----
+
+To fix this, you can use Spring Security Test's http://docs.spring.io/spring-security/site/docs/current/reference/html/test-method.html#test-method-withmockuser[`@WithMockUser`]. Open `BlogResourceIntTest.java` and inject  `UserRepository` as a dependency.
+
+[source,java]
+.src/test/java/org/jhipster/web/rest/BlogResourceIntTest.java
+----
+@Autowired
+private UserRepository userRepository;
+----
+
+Change the `createEntity()` method so its not `static` and uses the `userRepository` to set a user on the blog entity.
+
+[source,java]
+----
+public Blog createEntity(EntityManager em) {
+    Blog blog = new Blog()
+            .name(DEFAULT_NAME)
+            .handle(DEFAULT_HANDLE)
+            .user(userRepository.findOneByLogin("user").get());
+    return blog;
+}
+----
+
+Add `@WithMockUser` to the `getAllBlogs()` method.
+
+[source,java]
+----
+@Test
+@Transactional
+@WithMockUser
+public void getAllBlogs() throws Exception {
+----
+
+After fixing this test, you should be able to run `mvn -Pprod package` without any failures.
+
+To deploy this application to Heroku, I logged in to my account using `heroku login` from the command line. I already had the https://devcenter.heroku.com/articles/heroku-command-line[Heroku CLI] installed.
 
 ----
 $ heroku login
@@ -480,6 +534,13 @@ I ran `heroku open`, logged as `admin` and was pleased to see it worked!
 
 .JHipster 4 demo on Heroku
 image::static/jhipster4-demo-heroku.png[JHipster 4 demo on Heroku, 1122, scaledwidth=100%]
+
+To save your changes for Heroku, commit your changes to Git.
+
+----
+git add .
+git commit -m "Deploy to Heroku"
+----
 
 == Learn More
 
