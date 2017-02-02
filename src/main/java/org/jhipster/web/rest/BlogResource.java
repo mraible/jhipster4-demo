@@ -27,7 +27,7 @@ public class BlogResource {
     private final Logger log = LoggerFactory.getLogger(BlogResource.class);
 
     private static final String ENTITY_NAME = "blog";
-        
+
     private final BlogRepository blogRepository;
 
     public BlogResource(BlogRepository blogRepository) {
@@ -85,7 +85,7 @@ public class BlogResource {
     @Timed
     public List<Blog> getAllBlogs() {
         log.debug("REST request to get all Blogs");
-        List<Blog> blogs = blogRepository.findAll();
+        List<Blog> blogs = blogRepository.findByUserIsCurrentUser();
         return blogs;
     }
 

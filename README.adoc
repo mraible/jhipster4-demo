@@ -305,34 +305,20 @@ You might notice that this application doesn't look like a blog and it doesn't a
 
 == Make UI Enhancements
 
-When doing UI development on a JHipster-generated application, it's nice to see your changes as soon as you save a file. JHipster 4 uses https://www.browsersync.io/[Browsersync] and https://webpack.github.io/[webpack] to power this feature. To enable it, run the following command in the `blog` directory.
+When doing UI development on a JHipster-generated application, it's nice to see your changes as soon as you save a file. JHipster 4 uses https://www.browsersync.io/[Browsersync] and https://webpack.github.io/[webpack] to power this feature. You enable this previously by running the following command in the `blog` directory.
 
 ----
-npm start
+yarn start
 ----
-
-Running this command will open your default browser and navigate to http://localhost:9000.
 
 In this section, you'll change the following:
 
-. Change the content field in an entry from `<input>` to a `<textarea>`
 . Change the rendered content field to display HTML
 . Change the list of entries to look like a blog
 
-==== Content as textarea
-
-Open `entry-dialog.component.html` and change the `<input>` field for `content` to a `<textarea>`. After making this change, it should look as follows:
-
-[source,html]
-.src/main/webapp/app/entities/entry/entry-dialog.component.html
-----
-<textarea class="form-control" name="content" id="field_content" [(ngModel)]="entry.content"
-          rows="5" required></textarea>
-----
-
 ==== Allow HTML
 
-If you enter HTML in this field, you'll notice it's escaped on the list screen.
+If you enter HTML in the `content` field of a blog entry, you'll notice it's escaped on the list screen.
 
 .Escaped HTML
 image::static/entries-with-html-escaped.png[Escaped HTML, 1216, scaledwidth=100%]
@@ -360,29 +346,33 @@ image::static/entries-with-html.png[Escaped HTML, 1216, scaledwidth=100%]
 
 ==== Improve the layout
 
-To make the list of entries look like a blog, replace `<div class="table-responsive">` and its inner `<table>` with HTML so it uses stacked layout in a single column.
+To make the list of entries look like a blog, replace `<div class="table-responsive">` with HTML so it uses a stacked layout in a single column.
 
 [source,html]
 .src/main/webapp/app/entities/entry/entry.component.html
 ----
-<div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-    <div *ngFor="let entry of entries; trackBy trackId">
-        <h2>{{entry.title}}</h2>
-        <small>Posted on {{entry.date | date: 'short'}} by {{entry.blog.user.login}}</small>
-        <div [innerHTML]="entry.content"></div>
-        <div class="btn-group mb-2 mt-1">
-            <button type="submit"
-                    uiSref="entry.edit" [uiParams]="{ id: entry.id }"
-                    class="btn btn-sm btn-primary">
-                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
-                translate="entity.action.edit"> Edit</span>
-            </button>
-            <button type="submit"
-                    uiSref="entry.delete"
-                    [uiParams]="{ id: entry.id }"
-                    class="btn btn-sm btn-danger">
-                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
-            </button>
+<div class="table-responsive" *ngIf="entries">
+    <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <div *ngFor="let entry of entries; trackBy: trackId">
+            <h2>{{entry.title}}</h2>
+            <small>Posted on {{entry.date | date: 'short'}} by {{entry.blog.user.login}}</small>
+            <div [innerHTML]="entry.content"></div>
+            <div class="btn-group mb-2 mt-1">
+                <button type="submit"
+                        [routerLink]="['/', { outlets: { popup: 'entry/'+ entry.id + '/edit'} }]"
+                        replaceUrl="true"
+                        class="btn btn-primary btn-sm">
+                    <span class="fa fa-pencil"></span>
+                    <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+                <button type="submit"
+                        [routerLink]="['/', { outlets: { popup: 'entry/'+ entry.id + '/delete'} }]"
+                        replaceUrl="true"
+                        class="btn btn-danger btn-sm">
+                    <span class="fa fa-remove"></span>
+                    <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>
