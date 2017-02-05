@@ -1,0 +1,8 @@
+version: '2'
+services:
+    blog-sonar:
+        container_name: blog-sonar
+        image: sonarqube:6.2-alpine
+        ports:
+            - 9000:9000
+            - 9092:9092
