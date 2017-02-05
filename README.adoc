@@ -28,7 +28,7 @@ ifdef::env-github[]
 endif::[]
 :toc:
 
-This article shows you how to build a simple blog application with https://jhipster.github.io/2017/02/02/jhipster-release-4.0.0.html[JHipster 4].
+This article shows you how to build a simple blog application with https://jhipster.github.io/2017/02/04/jhipster-release-4.0.1.html[JHipster 4.0.1].
 
 ifdef::env-github[]
 TIP: It appears you're reading this document on GitHub. If you want a prettier view, install https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia[Asciidoctor.js Live Preview for Chrome], then view the https://raw.githubusercontent.com/mraible/jhipster4-demo/master/README.adoc[raw document]. Another option is to use the http://gist.asciidoctor.org/?github-mraible/jhipster4-demo//README.adoc[DocGist view].
@@ -144,7 +144,7 @@ image::static/swagger-docs.png[Swagger docs, 1367, scaledwidth=100%]
 You can run the following command (in a separate terminal window) to run the Protractor tests and confirm everything is working properly.
 
 ----
-yarn run e2e
+yarn e2e
 ----
 
 At this point, it's a good idea to check your project into Git so you can easily see what changes are made going forward.
@@ -226,6 +226,14 @@ image::static/blogs.png[Blogs, 1121, scaledwidth=100%]
 image::static/entries.png[Entries, 1302, scaledwidth=100%]
 
 From these screenshots, you can see that users can see each other's data, and modify it.
+
+Check your generated entities into Git.
+
+----
+git init
+git add .
+git commit -m "Entities generated"
+----
 
 == Add Business Logic
 
