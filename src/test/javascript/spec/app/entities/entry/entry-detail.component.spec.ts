@@ -70,7 +70,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.entry).toEqual(jasmine.objectContaining({id: 10}));
+            expect(comp.entry).toEqual(jasmine.objectContaining({id:10}));
             });
         });
     });
