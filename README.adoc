@@ -1,7 +1,7 @@
 = Get Started with JHipster 4
 :author: Matt Raible
 :email:  matt@raibledesigns.com
-:revnumber: 1.1
+:revnumber: 1.0
 :revdate:   {docdate}
 :subject: JHipster
 :keywords: JHipster, Angular, Spring Boot, Bootstrap 4
