@@ -80,7 +80,7 @@ If you'd like to create the same application I did, you can place the following 
 ----
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.0",
+    "jhipsterVersion": "4.0.3",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -101,6 +101,7 @@ If you'd like to create the same application I did, you can place the following 
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
     "clientFramework": "angular2",
+    "serviceDiscoveryType": false,
     "testFrameworks": [
       "gatling",
       "protractor"
@@ -389,26 +390,7 @@ To make the list of entries look like a blog, replace `<div class="table-respons
 Now it looks more like a regular blog!
 
 .Blog entries
-image::static/blog-entries.png[Blog entries, 1138, scaledwidth=100%]
-
-You might notice the gap in the top menu when you're logged in as a non-admin user. This is https://github.com/jhipster/generator-jhipster/issues/5063[a bug in JHipster 4.0.0]. You can fix it by modifying `has-authority.directive.ts` to use `hidden-xs-up` instead of the `invisible` CSS class. I'd recommend changing this in the `has-any-authority.directive.ts` file too.
-
-[source,typescript]
-.src/main/webapp/app/shared/auth/has-authority.directive.ts
-----
-private setVisible () {
-    this.renderer.setElementClass(this.el.nativeElement, 'hidden-xs-up', false);
-}
-
-private setHidden () {
-    this.renderer.setElementClass(this.el.nativeElement, 'hidden-xs-up', true);
-}
-----
-
-After making this change, the gap should disappear.
-
-.Blog entries
-image::static/blog-entries-menu-fixed.png[Blog entries, 1127, scaledwidth=100%]
+image::static/blog-entries.png[Blog entries, 1112, scaledwidth=100%]
 
 Commit all your changes to Git.
 
