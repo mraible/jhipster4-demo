@@ -4,6 +4,7 @@ import org.jhipster.BlogApp;
 
 import org.jhipster.domain.Tag;
 import org.jhipster.repository.TagRepository;
+import org.jhipster.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +50,9 @@ public class TagResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restTagMockMvc;
@@ -61,6 +65,7 @@ public class TagResourceIntTest {
             TagResource tagResource = new TagResource(tagRepository);
         this.restTagMockMvc = MockMvcBuilders.standaloneSetup(tagResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 

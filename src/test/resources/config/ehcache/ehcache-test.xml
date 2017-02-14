@@ -7,7 +7,7 @@
         <expiry>
             <ttl unit="seconds">3600</ttl>
         </expiry>
-        <heap>100</heap>
+        <heap unit="entries">100</heap>
     </cache-template>
 
     <cache alias="org.jhipster.domain.User" uses-template="simple"/>
@@ -20,15 +20,6 @@
 
     <cache alias="org.jhipster.domain.User.persistentTokens" uses-template="simple"/>
 
-    <cache alias="org.jhipster.domain.Blog" uses-template="simple"/>
+    <cache alias="org.jhipster.domain.PersistentAuditEvent" uses-template="simple"/>
 
-    <cache alias="org.jhipster.domain.Entry" uses-template="simple"/>
-
-    <cache alias="org.jhipster.domain.Entry.tags" uses-template="simple"/>
-
-    <cache alias="org.jhipster.domain.Tag" uses-template="simple"/>
-
-    <cache alias="org.jhipster.domain.Tag.entries" uses-template="simple"/>
-
-    <!-- jhipster-needle-ehcache-add-entry -->
 </config>

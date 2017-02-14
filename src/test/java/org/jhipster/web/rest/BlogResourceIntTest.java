@@ -4,6 +4,7 @@ import org.jhipster.BlogApp;
 import org.jhipster.domain.Blog;
 import org.jhipster.repository.BlogRepository;
 import org.jhipster.repository.UserRepository;
+import org.jhipster.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,6 +56,9 @@ public class BlogResourceIntTest {
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     @Autowired
+    private ExceptionTranslator exceptionTranslator;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restBlogMockMvc;
@@ -67,6 +71,7 @@ public class BlogResourceIntTest {
             BlogResource blogResource = new BlogResource(blogRepository);
         this.restBlogMockMvc = MockMvcBuilders.standaloneSetup(blogResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 

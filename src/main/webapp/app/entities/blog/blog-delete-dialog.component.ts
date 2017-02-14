@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
@@ -20,15 +20,13 @@ export class BlogDeleteDialogComponent {
         private jhiLanguageService: JhiLanguageService,
         private blogService: BlogService,
         public activeModal: NgbActiveModal,
-        private eventManager: EventManager,
-        private router: Router
+        private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['blog']);
     }
 
     clear () {
         this.activeModal.dismiss('cancel');
-        this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
     }
 
     confirmDelete (id: number) {
@@ -37,7 +35,6 @@ export class BlogDeleteDialogComponent {
                 name: 'blogListModification',
                 content: 'Deleted an blog'
             });
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.activeModal.dismiss(true);
         });
     }

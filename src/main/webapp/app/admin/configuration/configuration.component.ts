@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { JhiConfigurationService } from './configuration.service';
@@ -7,7 +7,7 @@ import { JhiConfigurationService } from './configuration.service';
     selector: 'jhi-configuration',
     templateUrl: './configuration.component.html'
 })
-export class JhiConfigurationComponent {
+export class JhiConfigurationComponent implements OnInit {
     allConfiguration: any = null;
     configuration: any = null;
     configKeys: any[];

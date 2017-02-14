@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.0",
+    "jhipsterVersion": "4.0.3",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -20,7 +20,6 @@
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
-    "clientFramework": "angular2",
     "testFrameworks": [
       "gatling",
       "protractor"
@@ -31,6 +30,8 @@
     "languages": [
       "en",
       "es"
-    ]
+    ],
+    "serviceDiscoveryType": false,
+    "clientFramework": "angular2"
   }
 }
