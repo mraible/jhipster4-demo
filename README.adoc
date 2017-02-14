@@ -28,7 +28,7 @@ ifdef::env-github[]
 endif::[]
 :toc:
 
-This article shows you how to build a simple blog application with https://jhipster.github.io/2017/02/04/jhipster-release-4.0.1.html[JHipster 4.0.1].
+This article shows you how to build a simple blog application with https://jhipster.github.io/2017/02/04/jhipster-release-4.0.3.html[JHipster 4.0.3].
 
 ifdef::env-github[]
 TIP: It appears you're reading this document on GitHub. If you want a prettier view, install https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia[Asciidoctor.js Live Preview for Chrome], then view the https://raw.githubusercontent.com/mraible/jhipster4-demo/master/README.adoc[raw document]. Another option is to use the http://gist.asciidoctor.org/?github-mraible/jhipster4-demo//README.adoc[DocGist view].
