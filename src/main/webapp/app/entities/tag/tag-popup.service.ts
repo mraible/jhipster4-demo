@@ -1,4 +1,5 @@
 import { Injectable, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Tag } from './tag.model';
 import { TagService } from './tag.service';
@@ -7,6 +8,7 @@ export class TagPopupService {
     private isOpen = false;
     constructor (
         private modalService: NgbModal,
+        private router: Router,
         private tagService: TagService
     ) {}
 
@@ -29,10 +31,10 @@ export class TagPopupService {
         let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.tag = tag;
         modalRef.result.then(result => {
-            console.log(`Closed with: ${result}`);
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         }, (reason) => {
-            console.log(`Dismissed ${reason}`);
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         });
         return modalRef;

@@ -4,8 +4,7 @@
             "home": {
                 "title": "Blogs",
                 "createLabel": "Create a new Blog",
-                "createOrEditLabel": "Create or edit a Blog",
-                "search": "Search for Blog"
+                "createOrEditLabel": "Create or edit a Blog"
             },
             "created": "A new Blog is created with identifier {{ param }}",
             "updated": "A Blog is updated with identifier {{ param }}",

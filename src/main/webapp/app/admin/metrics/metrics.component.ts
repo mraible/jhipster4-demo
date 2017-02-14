@@ -13,7 +13,7 @@ export class JhiMetricsMonitoringComponent implements OnInit {
     metrics: any = {};
     cachesStats: any = {};
     servicesStats: any = {};
-    updatingMetrics: boolean = true;
+    updatingMetrics = true;
     JCACHE_KEY: string ;
 
     constructor(
@@ -64,9 +64,9 @@ export class JhiMetricsMonitoringComponent implements OnInit {
             const modalRef  = this.modalService.open(JhiMetricsMonitoringModalComponent, { size: 'lg'});
             modalRef.componentInstance.threadDump = data;
             modalRef.result.then((result) => {
-                console.log(`Closed with: ${result}`);
+                // Left blank intentionally, nothing to do here
             }, (reason) => {
-                console.log(`Dismissed ${reason}`);
+                // Left blank intentionally, nothing to do here
             });
         });
     }

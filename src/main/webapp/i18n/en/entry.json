@@ -4,8 +4,7 @@
             "home": {
                 "title": "Entries",
                 "createLabel": "Create a new Entry",
-                "createOrEditLabel": "Create or edit a Entry",
-                "search": "Search for Entry"
+                "createOrEditLabel": "Create or edit a Entry"
             },
             "created": "A new Entry is created with identifier {{ param }}",
             "updated": "A Entry is updated with identifier {{ param }}",
