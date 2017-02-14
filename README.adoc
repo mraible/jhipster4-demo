@@ -94,6 +94,7 @@ If you'd like to create the same application I did, you can place the following 
     "prodDatabaseType": "postgresql",
     "searchEngine": false,
     "messageBroker": false,
+    "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
     "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
@@ -101,7 +102,6 @@ If you'd like to create the same application I did, you can place the following 
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
     "clientFramework": "angular2",
-    "serviceDiscoveryType": false,
     "testFrameworks": [
       "gatling",
       "protractor"
