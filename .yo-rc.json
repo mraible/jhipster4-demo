@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.3",
+    "jhipsterVersion": "4.0.5",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -14,9 +14,11 @@
     "prodDatabaseType": "postgresql",
     "searchEngine": false,
     "messageBroker": false,
+    "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
     "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
+    "clientFramework": "angular2",
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
@@ -30,8 +32,6 @@
     "languages": [
       "en",
       "es"
-    ],
-    "serviceDiscoveryType": false,
-    "clientFramework": "angular2"
+    ]
   }
 }
