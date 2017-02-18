@@ -14,7 +14,6 @@ import {
     LoginService,
     LoginModalService,
     Principal,
-    HasAuthorityDirective,
     HasAnyAuthorityDirective,
     JhiLoginModalComponent
 } from './';
@@ -26,7 +25,6 @@ import {
     ],
     declarations: [
         JhiLoginModalComponent,
-        HasAuthorityDirective,
         HasAnyAuthorityDirective
     ],
     providers: [
@@ -46,7 +44,6 @@ import {
     exports: [
         BlogSharedCommonModule,
         JhiLoginModalComponent,
-        HasAuthorityDirective,
         HasAnyAuthorityDirective,
         DatePipe
     ],

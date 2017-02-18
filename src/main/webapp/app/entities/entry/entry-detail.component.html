@@ -19,7 +19,7 @@
         <dt><span jhiTranslate="blogApp.entry.blog">Blog</span></dt>
         <dd>
             <div *ngIf="entry.blog">
-                <a [routerLink]="['blog', entry.blog?.id]">{{entry.blog?.name}}</a>
+                <a [routerLink]="['/blog', entry.blog?.id]">{{entry.blog?.name}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="blogApp.entry.tag">Tag</span></dt>
