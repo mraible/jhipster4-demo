@@ -80,7 +80,7 @@ If you'd like to create the same application I did, you can place the following 
 ----
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.3",
+    "jhipsterVersion": "4.0.5",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -91,17 +91,17 @@ If you'd like to create the same application I did, you can place the following 
     "websocket": false,
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
-    "prodDatabaseType": "postgresql",
+    "prodDatabaseType": "mysql",
     "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
     "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
+    "clientFramework": "angular2",
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
-    "clientFramework": "angular2",
     "testFrameworks": [
       "gatling",
       "protractor"
