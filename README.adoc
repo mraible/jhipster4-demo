@@ -53,7 +53,7 @@ NOTE: When I say "AngularJS", I mean Angular 1.x. "Angular" is the forward-looki
 
 == Install JHipster 4
 
-The http://jhipster.github.io/installation/[Installing JHipster] instructions show you all the tools you'll need to use a released version of JHipster. These instructions have not been updated for JHipster 4, so here's the abbreviated version.
+The http://jhipster.github.io/installation/[Installing JHipster] instructions show you all the tools you'll need to use a released version of JHipster. 
 
 . Install Java 8 http://www.oracle.com/technetwork/java/javase/downloads/index.html[from Oracle].
 . Install Git from https://git-scm.com.
