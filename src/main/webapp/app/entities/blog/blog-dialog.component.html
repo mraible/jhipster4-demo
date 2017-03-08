@@ -3,9 +3,9 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
+        <h4 class="modal-title" id="myBlogLabel" jhiTranslate="blogApp.blog.home.createOrEditLabel">Create or edit a Blog</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
-        <h4 class="modal-title" id="myBlogLabel" jhiTranslate="blogApp.blog.home.createOrEditLabel">Create or edit a Blog</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>

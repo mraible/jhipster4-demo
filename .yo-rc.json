@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.5",
+    "jhipsterVersion": "4.0.7",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",

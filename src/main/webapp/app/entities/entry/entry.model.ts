@@ -8,5 +8,6 @@ export class Entry {
         public date?: any,
         public blog?: Blog,
         public tag?: Tag,
-    ) { }
+    ) {
+    }
 }

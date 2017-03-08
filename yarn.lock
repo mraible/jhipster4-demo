@@ -15,6 +15,78 @@
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/@angular-cli/base-href-webpack/-/base-href-webpack-1.0.16.tgz#4296a2ff7db84ddc2e67c2a107e276f72463ff8d"
 
+"@angular/cli@1.0.0-beta.28.3":
+  version "1.0.0-beta.28.3"
+  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.0.0-beta.28.3.tgz#f09d3a67777b7986b0da8d986b73e3d1d94475fd"
+  dependencies:
+    "@angular-cli/ast-tools" "^1.0.14"
+    "@angular-cli/base-href-webpack" "^1.0.14"
+    "@angular/compiler" "^2.3.1"
+    "@angular/compiler-cli" "^2.3.1"
+    "@angular/core" "^2.3.1"
+    "@ngtools/json-schema" "^1.0.0"
+    "@ngtools/webpack" "^1.2.3"
+    async "^2.1.4"
+    autoprefixer "^6.5.3"
+    chalk "^1.1.3"
+    common-tags "^1.3.1"
+    css-loader "^0.26.1"
+    cssnano "^3.10.0"
+    debug "^2.1.3"
+    denodeify "^1.2.1"
+    diff "^2.2.2"
+    ember-cli-normalize-entity-name "^1.0.0"
+    ember-cli-string-utils "^1.0.0"
+    exists-sync "0.0.3"
+    extract-text-webpack-plugin "^2.0.0-rc.1"
+    file-loader "^0.8.5"
+    findup "0.1.5"
+    fs-extra "^0.30.0"
+    get-caller-file "^1.0.0"
+    glob "^7.0.3"
+    html-webpack-plugin "^2.19.0"
+    inflection "^1.7.0"
+    inquirer "^0.12.0"
+    isbinaryfile "^2.0.3"
+    json-loader "^0.5.4"
+    karma-sourcemap-loader "^0.3.7"
+    karma-webpack "^1.8.0"
+    less "^2.7.2"
+    less-loader "^2.2.3"
+    lodash "^4.11.1"
+    minimatch "^3.0.3"
+    node-modules-path "^1.0.0"
+    node-sass "^4.3.0"
+    nopt "^3.0.1"
+    opn "4.0.1"
+    ora "^0.2.0"
+    portfinder "1.0.9"
+    postcss-loader "^0.9.1"
+    raw-loader "^0.5.1"
+    remap-istanbul "^0.6.4"
+    resolve "^1.1.7"
+    rimraf "^2.5.3"
+    rsvp "^3.0.17"
+    sass-loader "^4.1.1"
+    script-loader "^0.7.0"
+    semver "^5.1.0"
+    silent-error "^1.0.0"
+    source-map-loader "^0.1.5"
+    sourcemap-istanbul-instrumenter-loader "^0.2.0"
+    style-loader "^0.13.1"
+    stylus "^0.54.5"
+    stylus-loader "^2.4.0"
+    temp "0.8.3"
+    through "^2.3.6"
+    typescript "~2.0.3"
+    url-loader "^0.5.7"
+    walk-sync "^0.2.6"
+    webpack "2.2.0"
+    webpack-dev-server "2.2.0-rc.0"
+    webpack-merge "^2.4.0"
+    webpack-sources "^0.1.3"
+    zone.js "^0.7.2"
+
 "@angular/common@2.4.7":
   version "2.4.7"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.7.tgz#9316daf90e353e67187d2e0afec5521c2001bd4b"
@@ -61,9 +133,9 @@
   dependencies:
     tsickle "^0.2"
 
-"@ng-bootstrap/ng-bootstrap@1.0.0-alpha.15":
-  version "1.0.0-alpha.15"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-alpha.15.tgz#c0f6be6831395ec76693cf1d47a6a91918a1634b"
+"@ng-bootstrap/ng-bootstrap@1.0.0-alpha.20":
+  version "1.0.0-alpha.20"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-alpha.20.tgz#db353971e4818210e753019b5ddbabad1e603a61"
 
 "@ngtools/json-schema@^1.0.0":
   version "1.0.2"
@@ -190,78 +262,6 @@ alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
 amdefine@1.0.0, amdefine@>=0.0.4, amdefine@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.0.tgz#fd17474700cb5cc9c2b709f0be9d23ce3c198c33"
-
-angular-cli@1.0.0-beta.28.3:
-  version "1.0.0-beta.28.3"
-  resolved "https://registry.yarnpkg.com/angular-cli/-/angular-cli-1.0.0-beta.28.3.tgz#9751d7414eaf8e0b714b2461a585bfda9713416f"
-  dependencies:
-    "@angular-cli/ast-tools" "^1.0.14"
-    "@angular-cli/base-href-webpack" "^1.0.14"
-    "@angular/compiler" "^2.3.1"
-    "@angular/compiler-cli" "^2.3.1"
-    "@angular/core" "^2.3.1"
-    "@ngtools/json-schema" "^1.0.0"
-    "@ngtools/webpack" "^1.2.3"
-    async "^2.1.4"
-    autoprefixer "^6.5.3"
-    chalk "^1.1.3"
-    common-tags "^1.3.1"
-    css-loader "^0.26.1"
-    cssnano "^3.10.0"
-    debug "^2.1.3"
-    denodeify "^1.2.1"
-    diff "^2.2.2"
-    ember-cli-normalize-entity-name "^1.0.0"
-    ember-cli-string-utils "^1.0.0"
-    exists-sync "0.0.3"
-    extract-text-webpack-plugin "^2.0.0-rc.1"
-    file-loader "^0.8.5"
-    findup "0.1.5"
-    fs-extra "^0.30.0"
-    get-caller-file "^1.0.0"
-    glob "^7.0.3"
-    html-webpack-plugin "^2.19.0"
-    inflection "^1.7.0"
-    inquirer "^0.12.0"
-    isbinaryfile "^2.0.3"
-    json-loader "^0.5.4"
-    karma-sourcemap-loader "^0.3.7"
-    karma-webpack "^1.8.0"
-    less "^2.7.2"
-    less-loader "^2.2.3"
-    lodash "^4.11.1"
-    minimatch "^3.0.3"
-    node-modules-path "^1.0.0"
-    node-sass "^4.3.0"
-    nopt "^3.0.1"
-    opn "4.0.1"
-    ora "^0.2.0"
-    portfinder "1.0.9"
-    postcss-loader "^0.9.1"
-    raw-loader "^0.5.1"
-    remap-istanbul "^0.6.4"
-    resolve "^1.1.7"
-    rimraf "^2.5.3"
-    rsvp "^3.0.17"
-    sass-loader "^4.1.1"
-    script-loader "^0.7.0"
-    semver "^5.1.0"
-    silent-error "^1.0.0"
-    source-map-loader "^0.1.5"
-    sourcemap-istanbul-instrumenter-loader "^0.2.0"
-    style-loader "^0.13.1"
-    stylus "^0.54.5"
-    stylus-loader "^2.4.0"
-    temp "0.8.3"
-    through "^2.3.6"
-    typescript "~2.0.3"
-    url-loader "^0.5.7"
-    walk-sync "^0.2.6"
-    webpack "2.2.0"
-    webpack-dev-server "2.2.0-rc.0"
-    webpack-merge "^2.4.0"
-    webpack-sources "^0.1.3"
-    zone.js "^0.7.2"
 
 angular2-cookie@1.2.6:
   version "1.2.6"
@@ -482,13 +482,13 @@ autoprefixer@^6.3.1, autoprefixer@^6.5.3:
     postcss "^5.2.11"
     postcss-value-parser "^3.2.3"
 
-awesome-typescript-loader@3.0.4-rc.2:
-  version "3.0.4-rc.2"
-  resolved "https://registry.yarnpkg.com/awesome-typescript-loader/-/awesome-typescript-loader-3.0.4-rc.2.tgz#f607fa9d96ccfe4808f59d64a039e6500af0d636"
+awesome-typescript-loader@3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/awesome-typescript-loader/-/awesome-typescript-loader-3.0.7.tgz#6ac5c356bb503cbd92b051b0c21dac74e2716ec9"
   dependencies:
     colors "^1.1.2"
     enhanced-resolve "^3.1.0"
-    loader-utils "^0.2.16"
+    loader-utils "^1.0.2"
     lodash "^4.17.4"
     mkdirp "^0.5.1"
     object-assign "^4.1.1"
@@ -680,12 +680,12 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bootstrap@4.0.0-alpha.5:
-  version "4.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-alpha.5.tgz#a126b648c3bd2f52b8fad4bbc5e2d0ad2abf7064"
+bootstrap@4.0.0-alpha.6:
+  version "4.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz#4f54dd33ac0deac3b28407bc2df7ec608869c9c8"
   dependencies:
-    jquery "1.9.1 - 3"
-    tether "^1.3.7"
+    jquery ">=1.9.1"
+    tether "^1.4.0"
 
 boxen@^0.3.1:
   version "0.3.1"
@@ -1664,7 +1664,7 @@ dateformat@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.0.0.tgz#2743e3abb5c3fc2462e527dca445e04e9f4dee17"
 
-debug@*, debug@2, debug@2.6.0, debug@^2.0.0, debug@^2.1.0, debug@^2.1.3, debug@^2.2.0:
+debug@*, debug@2, debug@2.6.0, debug@^2.0.0, debug@^2.1.0, debug@^2.1.3:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.0.tgz#bc596bcabe7617f11d9fa15361eded5608b8499b"
   dependencies:
@@ -1674,7 +1674,7 @@ debug@0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
 
-debug@2.2.0, debug@~2.2.0:
+debug@2.2.0, debug@^2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -2013,7 +2013,11 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
-ejs@2.5.1, ejs@^2.3.1:
+ejs@2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.5.6.tgz#479636bfa3fe3b1debd52087f0acb204b4f19c88"
+
+ejs@^2.3.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.5.1.tgz#dbc0ac40812d3b451dad063fcd369e4e47d80287"
 
@@ -2253,7 +2257,7 @@ esprima@2.7.x, esprima@^2.6.0, esprima@^2.7.1:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
 
-esprima@~3.1.0:
+esprima@^3.1.1, esprima@~3.1.0:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-3.1.3.tgz#fdca51cee6133895e3c88d535ce49dbff62a4633"
 
@@ -2824,24 +2828,24 @@ generate-object-property@^1.1.0:
   dependencies:
     is-property "^1.0.0"
 
-generator-jhipster@4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.0.3.tgz#acf3d1a776f3eea06c8396c51fd582ab6fbcb5f6"
+generator-jhipster@4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.0.7.tgz#14f5e3968f9d18b8bd6aa667080af8a18418c074"
   dependencies:
     chalk "1.1.3"
     cheerio "0.22.0"
-    ejs "2.5.1"
-    glob "7.0.6"
+    ejs "2.5.6"
+    glob "7.1.1"
     html-wiring "1.2.0"
     insight "0.8.4"
     jhipster-core "1.2.8"
-    js-yaml "3.6.1"
-    lodash "4.15.0"
+    js-yaml "3.8.1"
+    lodash "4.17.4"
     mkdirp "0.5.1"
-    pluralize "3.0.0"
+    pluralize "3.1.0"
     randexp "0.4.4"
     semver "5.3.0"
-    shelljs "0.7.4"
+    shelljs "0.7.6"
     yeoman-generator "0.24.1"
     yo "1.8.5"
 
@@ -2938,9 +2942,20 @@ glob@5.x, glob@^5.0.15, glob@^5.0.3, glob@~5.0.0:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@7.0.6, glob@7.0.x:
+glob@7.0.x:
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.0.6.tgz#211bafaf49e525b8cd93260d14ab136152b3f57a"
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.2"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
+glob@7.1.1, glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.0.6, glob@^7.1.1, glob@~7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
@@ -2956,17 +2971,6 @@ glob@^6.0.1, glob@^6.0.4:
     inflight "^1.0.4"
     inherits "2"
     minimatch "2 || 3"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
-
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.0.6, glob@^7.1.1, glob@~7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^3.0.2"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
@@ -3255,20 +3259,9 @@ html-minifier@^3.2.3:
     relateurl "0.2.x"
     uglify-js "2.7.x"
 
-html-webpack-plugin@2.28.0:
+html-webpack-plugin@2.28.0, html-webpack-plugin@^2.19.0:
   version "2.28.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.28.0.tgz#2e7863b57e5fd48fe263303e2ffc934c3064d009"
-  dependencies:
-    bluebird "^3.4.7"
-    html-minifier "^3.2.3"
-    loader-utils "^0.2.16"
-    lodash "^4.17.3"
-    pretty-error "^2.0.2"
-    toposort "^1.0.0"
-
-html-webpack-plugin@^2.19.0:
-  version "2.26.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.26.0.tgz#ba97c8a66f912b85df80d2aeea65966c8bd9249e"
   dependencies:
     bluebird "^3.4.7"
     html-minifier "^3.2.3"
@@ -3335,14 +3328,14 @@ http-proxy-middleware@~0.17.1:
     lodash "^4.17.2"
     micromatch "^2.3.11"
 
-http-proxy@1.15.2:
+http-proxy@1.15.2, http-proxy@^1.13.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.15.2.tgz#642fdcaffe52d3448d2bda3b0079e9409064da31"
   dependencies:
     eventemitter3 "1.x.x"
     requires-port "1.x.x"
 
-http-proxy@^1.13.0, http-proxy@^1.16.2:
+http-proxy@^1.16.2:
   version "1.16.2"
   resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.16.2.tgz#06dff292952bf64dbe8471fa9df73066d4f37742"
   dependencies:
@@ -3607,6 +3600,10 @@ insight@^0.7.0:
 interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
+
+intl@^1.0.1:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
 
 invert-kv@^1.0.0:
   version "1.0.0"
@@ -3964,7 +3961,7 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-"jquery@1.9.1 - 3", jquery@3.1.1:
+jquery@3.1.1, jquery@>=1.9.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
 
@@ -3976,7 +3973,14 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-js-yaml@3.6.1, js-yaml@3.x:
+js-yaml@3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.1.tgz#782ba50200be7b9e5a8537001b7804db3ad02628"
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^3.1.1"
+
+js-yaml@3.x:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.6.1.tgz#6e5fe67d8b205ce4d22fad05b7781e8dadcc4b30"
   dependencies:
@@ -4072,6 +4076,12 @@ karma-coverage@1.1.1:
     lodash "^3.8.0"
     minimatch "^3.0.0"
     source-map "^0.5.1"
+
+karma-intl-shim@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/karma-intl-shim/-/karma-intl-shim-1.0.3.tgz#f07ab86b644a7c2c2a3299f38d40ed49af7ec0f0"
+  dependencies:
+    intl "^1.0.1"
 
 karma-jasmine@1.1.0:
   version "1.1.0"
@@ -4256,6 +4266,14 @@ loader-utils@0.2.x, loader-utils@0.x.x, loader-utils@^0.2.14, loader-utils@^0.2.
     emojis-list "^2.0.0"
     json5 "^0.5.0"
     object-assign "^4.0.1"
+
+loader-utils@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.0.3.tgz#566c320c24c33cb3f02db4df83f3dbf60b253de3"
+  dependencies:
+    big.js "^3.1.3"
+    emojis-list "^2.0.0"
+    json5 "^0.5.0"
 
 localtunnel@1.8.2:
   version "1.8.2"
@@ -4450,10 +4468,6 @@ lodash.templatesettings@^3.0.0:
 lodash.uniq@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
-
-lodash@4.15.0:
-  version "4.15.0"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.15.0.tgz#3162391d8f0140aa22cf8f6b3c34d6b7f63d3aa9"
 
 lodash@4.17.4, lodash@4.x.x, lodash@^4.0.0, lodash@^4.0.1, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.5.1, lodash@^4.6.1:
   version "4.17.4"
@@ -4687,13 +4701,9 @@ mime-types@^2.1.12, mime-types@~2.1.11, mime-types@~2.1.13, mime-types@~2.1.7:
   dependencies:
     mime-db "~1.26.0"
 
-mime@1.2.4:
+mime@1.2.4, mime@1.2.x:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.2.4.tgz#11b5fdaf29c2509255176b80ad520294f5de92b7"
-
-mime@1.2.x:
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-1.2.11.tgz#58203eed86e3a5ef17aed2b7d9ebd47f0a60dd10"
 
 mime@1.3.4, "mime@>= 0.0.1", mime@^1.2.11, mime@^1.3.4:
   version "1.3.4"
@@ -4796,9 +4806,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ng-jhipster@0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/ng-jhipster/-/ng-jhipster-0.1.8.tgz#c0415ee1e06946195955887c518475e50b696c72"
+ng-jhipster@0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/ng-jhipster/-/ng-jhipster-0.1.9.tgz#b85bcbff9b3cddaaf2eb8a018b93ba03b95fc707"
   dependencies:
     ng2-translate "4.2.0"
 
@@ -5366,9 +5376,9 @@ pinkie@^2.0.0, pinkie@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
-pluralize@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-3.0.0.tgz#72799a9ef41a53ff0c03de6522e286b40d5c932d"
+pluralize@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-3.1.0.tgz#84213d0a12356069daa84060c559242633161368"
 
 pngquant-bin@^3.0.0:
   version "3.1.1"
@@ -5661,18 +5671,18 @@ postcss-zindex@^2.0.1:
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
-postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.2.11:
-  version "5.2.11"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.11.tgz#ff29bcd6d2efb98bfe08a022055ec599bbe7b761"
+postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.16, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.8, postcss@^5.2.11, postcss@^5.2.12:
+  version "5.2.13"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.13.tgz#1be52a32cf2ef58c0d75f1aedb3beabcf257cef3"
   dependencies:
     chalk "^1.1.3"
     js-base64 "^2.1.9"
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
-postcss@^5.2.12:
-  version "5.2.13"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.13.tgz#1be52a32cf2ef58c0d75f1aedb3beabcf257cef3"
+postcss@^5.0.6:
+  version "5.2.11"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.11.tgz#ff29bcd6d2efb98bfe08a022055ec599bbe7b761"
   dependencies:
     chalk "^1.1.3"
     js-base64 "^2.1.9"
@@ -6500,7 +6510,15 @@ sha.js@^2.3.6:
   dependencies:
     inherits "^2.0.1"
 
-shelljs@0.7.4, shelljs@^0.7.0:
+shelljs@0.7.6:
+  version "0.7.6"
+  resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.6.tgz#379cccfb56b91c8601e4793356eb5382924de9ad"
+  dependencies:
+    glob "^7.0.0"
+    interpret "^1.0.0"
+    rechoir "^0.6.2"
+
+shelljs@^0.7.0:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.4.tgz#b8f04b3a74ddfafea22acf98e0be45ded53d59c8"
   dependencies:
@@ -7071,7 +7089,7 @@ tempfile@^1.0.0:
     os-tmpdir "^1.0.0"
     uuid "^2.0.1"
 
-tether@1.4.0, tether@^1.3.7:
+tether@1.4.0, tether@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.0.tgz#0f9fa171f75bf58485d8149e94799d7ae74d1c1a"
 
@@ -7709,15 +7727,9 @@ webpack-dev-server@2.3.0:
     webpack-dev-middleware "^1.9.0"
     yargs "^6.0.0"
 
-webpack-merge@2.6.1:
+webpack-merge@2.6.1, webpack-merge@^2.4.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-2.6.1.tgz#f1d801d2c5d39f83ffec9f119240b3e3be994a1c"
-  dependencies:
-    lodash "^4.17.4"
-
-webpack-merge@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-2.4.0.tgz#4c518d471632c29ae22e83687c2f42a9cd5f35ea"
   dependencies:
     lodash "^4.17.4"
 

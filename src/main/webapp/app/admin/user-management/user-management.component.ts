@@ -119,16 +119,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     }
 
     private onSuccess(data, headers) {
-        // hide anonymous user from user management: it's a required user for Spring Security
-        let hiddenUsersSize = 0;
-        for (let i in data) {
-            if (data[i]['login'] === 'anonymoususer') {
-                data.splice(i, 1);
-                hiddenUsersSize++;
-            }
-        }
         this.links = this.parseLinks.parse(headers.get('link'));
-        this.totalItems = headers.get('X-Total-Count') - hiddenUsersSize;
+        this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         this.users = data;
     }

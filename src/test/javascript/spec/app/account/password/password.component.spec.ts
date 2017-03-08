@@ -1,9 +1,6 @@
 import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
-import { MockBackend } from '@angular/http/testing';
-import { Http, BaseRequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { JhiLanguageService } from 'ng-jhipster';
-import { MockLanguageService } from '../../../helpers/mock-language.service';
+import { BlogTestModule } from '../../../test.module';
 import { PasswordComponent } from '../../../../../../main/webapp/app/account/password/password.component';
 import { Password } from '../../../../../../main/webapp/app/account/password/password.service';
 import { Principal } from '../../../../../../main/webapp/app/shared/auth/principal.service';
@@ -20,23 +17,11 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
+                imports: [BlogTestModule],
                 declarations: [PasswordComponent],
                 providers: [
-                    MockBackend,
                     Principal,
                     AccountService,
-                    BaseRequestOptions,
-                    {
-                        provide: Http,
-                        useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-                            return new Http(backendInstance, defaultOptions);
-                        },
-                        deps: [MockBackend, BaseRequestOptions]
-                    },
-                    {
-                        provide: JhiLanguageService,
-                        useClass: MockLanguageService
-                    },
                     Password
                 ]
             }).overrideComponent(PasswordComponent, {

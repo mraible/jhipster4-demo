@@ -1,16 +1,15 @@
 <div>
-    <h2><span jhiTranslate="blogApp.tag.home.title">Tags</span>
-        <button class="btn btn-primary float-xs-right create-tag" [routerLink]="['/', { outlets: { popup: ['tag-new'] } }]">
+    <h2>
+        <span jhiTranslate="blogApp.tag.home.title">Tags</span>
+        <button class="btn btn-primary float-right create-tag" [routerLink]="['/', { outlets: { popup: ['tag-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="blogApp.tag.home.createLabel">
             Create new Tag
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
-
-    <div class="container-fluid">
-        <div class="row">
-        </div>
+    <div class="row">
     </div>
     <br/>
     <div class="table-responsive" *ngIf="tags">
@@ -26,7 +25,7 @@
             <tr *ngFor="let tag of tags ;trackBy: trackId">
                 <td><a [routerLink]="['../tag', tag.id ]">{{tag.id}}</a></td>
                 <td>{{tag.name}}</td>
-                <td class="text-xs-right">
+                <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['../tag', tag.id ]"

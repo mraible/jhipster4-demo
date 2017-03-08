@@ -1,11 +1,7 @@
 import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
-import { MockBackend } from '@angular/http/testing';
-import { Http, BaseRequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { JhiLanguageService } from 'ng-jhipster';
-
 import { JhiLanguageHelper } from '../../../../../../main/webapp/app/shared';
-import { MockLanguageService } from '../../../helpers/mock-language.service';
+import { BlogTestModule } from '../../../test.module';
 import { Principal, AccountService } from '../../../../../../main/webapp/app/shared';
 import { SettingsComponent } from '../../../../../../main/webapp/app/account/settings/settings.component';
 import { MockAccountService } from '../../../helpers/mock-account.service';
@@ -23,9 +19,9 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
+                imports: [BlogTestModule],
                 declarations: [SettingsComponent],
                 providers: [
-                    MockBackend,
                     {
                         provide: Principal,
                         useClass: MockPrincipal
@@ -34,22 +30,10 @@ describe('Component Tests', () => {
                         provide: AccountService,
                         useClass: MockAccountService
                     },
-                    BaseRequestOptions,
                     {
                         provide: JhiLanguageHelper,
                         useValue: null
                     },
-                    {
-                        provide: JhiLanguageService,
-                        useClass: MockLanguageService
-                    },
-                    {
-                        provide: Http,
-                        useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-                            return new Http(backendInstance, defaultOptions);
-                        },
-                        deps: [MockBackend, BaseRequestOptions]
-                    }
                 ]
             }).overrideComponent(SettingsComponent, {
                 set: {

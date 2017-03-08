@@ -3,6 +3,7 @@ package org.jhipster.service;
 import org.jhipster.domain.Authority;
 import org.jhipster.domain.User;
 import org.jhipster.repository.AuthorityRepository;
+import org.jhipster.config.Constants;
 import org.jhipster.repository.UserRepository;
 import org.jhipster.security.AuthoritiesConstants;
 import org.jhipster.security.SecurityUtils;
@@ -190,7 +191,7 @@ public class UserService {
 
     @Transactional(readOnly = true)    
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UserDTO::new);
+        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)
