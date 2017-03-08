@@ -1,16 +1,15 @@
 <div>
-    <h2><span jhiTranslate="blogApp.blog.home.title">Blogs</span>
-        <button class="btn btn-primary float-xs-right create-blog" [routerLink]="['/', { outlets: { popup: ['blog-new'] } }]">
+    <h2>
+        <span jhiTranslate="blogApp.blog.home.title">Blogs</span>
+        <button class="btn btn-primary float-right create-blog" [routerLink]="['/', { outlets: { popup: ['blog-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="blogApp.blog.home.createLabel">
             Create new Blog
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
-
-    <div class="container-fluid">
-        <div class="row">
-        </div>
+    <div class="row">
     </div>
     <br/>
     <div class="table-responsive" *ngIf="blogs">
@@ -32,7 +31,7 @@
                 <td>
                     {{blog.user?.login}}
                 </td>
-                <td class="text-xs-right">
+                <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['../blog', blog.id ]"

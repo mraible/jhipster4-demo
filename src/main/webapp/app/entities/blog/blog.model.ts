@@ -5,5 +5,6 @@ export class Blog {
         public name?: string,
         public handle?: string,
         public user?: User,
-    ) { }
+    ) {
+    }
 }

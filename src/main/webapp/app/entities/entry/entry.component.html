@@ -1,16 +1,15 @@
 <div>
-    <h2><span jhiTranslate="blogApp.entry.home.title">Entries</span>
-        <button class="btn btn-primary float-xs-right create-entry" [routerLink]="['/', { outlets: { popup: ['entry-new'] } }]">
+    <h2>
+        <span jhiTranslate="blogApp.entry.home.title">Entries</span>
+        <button class="btn btn-primary float-right create-entry" [routerLink]="['/', { outlets: { popup: ['entry-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="blogApp.entry.home.createLabel">
             Create new Entry
             </span>
-        </button></h2>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
-
-    <div class="container-fluid">
-        <div class="row">
-        </div>
+    <div class="row">
     </div>
     <br/>
     <div class="table-responsive" *ngIf="entries">
@@ -36,7 +35,7 @@
                         <a [routerLink]="['../blog', entry.blog?.id ]" >{{entry.blog?.name}}</a>
                     </div>
                 </td>
-                <td class="text-xs-right">
+                <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['../entry', entry.id ]"
