@@ -22,7 +22,8 @@ export class EntryPopupService {
 
         if (id) {
             this.entryService.find(id).subscribe(entry => {
-                entry.date = this.datePipe.transform(entry.date, 'yyyy-MM-ddThh:mm');
+                entry.date = this.datePipe
+                    .transform(entry.date, 'yyyy-MM-ddThh:mm');
                 this.entryModalRef(component, entry);
             });
         } else {

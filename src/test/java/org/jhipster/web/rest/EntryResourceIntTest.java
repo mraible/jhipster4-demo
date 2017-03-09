@@ -71,7 +71,7 @@ public class EntryResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-            EntryResource entryResource = new EntryResource(entryRepository);
+        EntryResource entryResource = new EntryResource(entryRepository);
         this.restEntryMockMvc = MockMvcBuilders.standaloneSetup(entryResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -86,9 +86,9 @@ public class EntryResourceIntTest {
      */
     public static Entry createEntity(EntityManager em) {
         Entry entry = new Entry()
-                .title(DEFAULT_TITLE)
-                .content(DEFAULT_CONTENT)
-                .date(DEFAULT_DATE);
+            .title(DEFAULT_TITLE)
+            .content(DEFAULT_CONTENT)
+            .date(DEFAULT_DATE);
         return entry;
     }
 
@@ -103,7 +103,6 @@ public class EntryResourceIntTest {
         int databaseSizeBeforeCreate = entryRepository.findAll().size();
 
         // Create the Entry
-
         restEntryMockMvc.perform(post("/api/entries")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(entry)))
@@ -124,13 +123,12 @@ public class EntryResourceIntTest {
         int databaseSizeBeforeCreate = entryRepository.findAll().size();
 
         // Create the Entry with an existing ID
-        Entry existingEntry = new Entry();
-        existingEntry.setId(1L);
+        entry.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restEntryMockMvc.perform(post("/api/entries")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingEntry)))
+            .content(TestUtil.convertObjectToJsonBytes(entry)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -242,9 +240,9 @@ public class EntryResourceIntTest {
         // Update the entry
         Entry updatedEntry = entryRepository.findOne(entry.getId());
         updatedEntry
-                .title(UPDATED_TITLE)
-                .content(UPDATED_CONTENT)
-                .date(UPDATED_DATE);
+            .title(UPDATED_TITLE)
+            .content(UPDATED_CONTENT)
+            .date(UPDATED_DATE);
 
         restEntryMockMvc.perform(put("/api/entries")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -296,6 +294,7 @@ public class EntryResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Entry.class);
     }

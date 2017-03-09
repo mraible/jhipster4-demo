@@ -91,8 +91,7 @@ public class TagResource {
      */
     @GetMapping("/tags")
     @Timed
-    public ResponseEntity<List<Tag>> getAllTags(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Tag>> getAllTags(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Tags");
         Page<Tag> page = tagRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tags");

@@ -72,10 +72,12 @@ export class EntryDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.entry.id !== undefined) {
             this.entryService.update(this.entry)
-                .subscribe((res: Entry) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Entry) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.entryService.create(this.entry)
-                .subscribe((res: Entry) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Entry) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

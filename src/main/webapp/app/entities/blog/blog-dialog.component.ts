@@ -45,10 +45,12 @@ export class BlogDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.blog.id !== undefined) {
             this.blogService.update(this.blog)
-                .subscribe((res: Blog) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Blog) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.blogService.create(this.blog)
-                .subscribe((res: Blog) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Blog) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 
