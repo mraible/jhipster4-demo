@@ -65,7 +65,7 @@ public class BlogResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-            BlogResource blogResource = new BlogResource(blogRepository);
+        BlogResource blogResource = new BlogResource(blogRepository);
         this.restBlogMockMvc = MockMvcBuilders.standaloneSetup(blogResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -80,8 +80,8 @@ public class BlogResourceIntTest {
      */
     public static Blog createEntity(EntityManager em) {
         Blog blog = new Blog()
-                .name(DEFAULT_NAME)
-                .handle(DEFAULT_HANDLE);
+            .name(DEFAULT_NAME)
+            .handle(DEFAULT_HANDLE);
         return blog;
     }
 
@@ -96,7 +96,6 @@ public class BlogResourceIntTest {
         int databaseSizeBeforeCreate = blogRepository.findAll().size();
 
         // Create the Blog
-
         restBlogMockMvc.perform(post("/api/blogs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(blog)))
@@ -116,13 +115,12 @@ public class BlogResourceIntTest {
         int databaseSizeBeforeCreate = blogRepository.findAll().size();
 
         // Create the Blog with an existing ID
-        Blog existingBlog = new Blog();
-        existingBlog.setId(1L);
+        blog.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBlogMockMvc.perform(post("/api/blogs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingBlog)))
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -214,8 +212,8 @@ public class BlogResourceIntTest {
         // Update the blog
         Blog updatedBlog = blogRepository.findOne(blog.getId());
         updatedBlog
-                .name(UPDATED_NAME)
-                .handle(UPDATED_HANDLE);
+            .name(UPDATED_NAME)
+            .handle(UPDATED_HANDLE);
 
         restBlogMockMvc.perform(put("/api/blogs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -266,6 +264,7 @@ public class BlogResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Blog.class);
     }

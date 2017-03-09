@@ -45,10 +45,12 @@ export class TagDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.tag.id !== undefined) {
             this.tagService.update(this.tag)
-                .subscribe((res: Tag) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Tag) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.tagService.create(this.tag)
-                .subscribe((res: Tag) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Tag) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 
