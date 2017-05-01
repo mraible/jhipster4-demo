@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             this.error = null;
             this.errorUserExists = null;
             this.errorEmailExists = null;
-            this.languageService.getCurrent().then(key => {
+            this.languageService.getCurrent().then((key) => {
                 this.registerAccount.langKey = key;
                 this.registerService.save(this.registerAccount).subscribe(() => {
                     this.success = true;
@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         this.success = null;
         if (response.status === 400 && response._body === 'login already in use') {
             this.errorUserExists = 'ERROR';
-        } else if (response.status === 400 && response._body === 'e-mail address already in use') {
+        } else if (response.status === 400 && response._body === 'email address already in use') {
             this.errorEmailExists = 'ERROR';
         } else {
             this.error = 'ERROR';

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, Resolve } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { navbarRoute } from '../app.route';
 import { errorRoute } from './';
 
-let LAYOUT_ROUTES = [
+const LAYOUT_ROUTES = [
     navbarRoute,
     ...errorRoute
 ];

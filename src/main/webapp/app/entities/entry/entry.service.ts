@@ -12,7 +12,7 @@ export class EntryService {
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(entry: Entry): Observable<Entry> {
-        let copy: Entry = Object.assign({}, entry);
+        const copy: Entry = Object.assign({}, entry);
         copy.date = this.dateUtils.toDate(entry.date);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
@@ -20,7 +20,7 @@ export class EntryService {
     }
 
     update(entry: Entry): Observable<Entry> {
-        let copy: Entry = Object.assign({}, entry);
+        const copy: Entry = Object.assign({}, entry);
 
         copy.date = this.dateUtils.toDate(entry.date);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
@@ -30,7 +30,7 @@ export class EntryService {
 
     find(id: number): Observable<Entry> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            let jsonResponse = res.json();
+            const jsonResponse = res.json();
             jsonResponse.date = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse.date);
             return jsonResponse;
@@ -38,7 +38,7 @@ export class EntryService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: any) => this.convertResponse(res))
         ;
@@ -48,9 +48,8 @@ export class EntryService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private convertResponse(res: any): any {
-        let jsonResponse = res.json();
+        const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].date = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].date);
@@ -60,9 +59,9 @@ export class EntryService {
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

@@ -81,7 +81,6 @@ describe('Component Tests', () => {
             const expected = [
                 {
                     'name': 'db',
-                    'error': undefined,
                     'status': 'UP',
                     'details': {
                         'database': 'H2',
@@ -125,7 +124,6 @@ describe('Component Tests', () => {
             const expected = [
                 {
                     'name': 'db',
-                    'error': undefined,
                     'status': 'UP',
                     'details': {
                         'database': 'H2',
@@ -139,7 +137,6 @@ describe('Component Tests', () => {
                 },
                 {
                     'name': 'system.subsystem1',
-                    'error': undefined,
                     'status': 'UP',
                     'details': {
                         'property1': 'system.subsystem1.property1'
@@ -186,7 +183,6 @@ describe('Component Tests', () => {
             const expected = [
                 {
                     'name': 'db',
-                    'error': undefined,
                     'status': 'UP',
                     'details': {
                         'database': 'H2',
@@ -200,7 +196,6 @@ describe('Component Tests', () => {
                 },
                 {
                     'name': 'system',
-                    'error': undefined,
                     'status': 'DOWN',
                     'details': {
                         'property1': 'system.property1'
@@ -208,7 +203,6 @@ describe('Component Tests', () => {
                 },
                 {
                     'name': 'system.subsystem1',
-                    'error': undefined,
                     'status': 'UP',
                     'details': {
                         'property1': 'system.subsystem1.property1'
@@ -255,7 +249,6 @@ describe('Component Tests', () => {
             const expected = [
                 {
                     'name': 'db',
-                    'error': undefined,
                     'status': 'UP',
                     'details': {
                         'database': 'H2',
@@ -274,7 +267,6 @@ describe('Component Tests', () => {
                 },
                 {
                     'name': 'system.subsystem1',
-                    'error': undefined,
                     'status': 'UP',
                     'details': {
                         'property1': 'system.subsystem1.property1'

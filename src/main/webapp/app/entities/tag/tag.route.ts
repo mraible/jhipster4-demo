@@ -11,7 +11,6 @@ import { TagDeletePopupComponent } from './tag-delete-dialog.component';
 
 import { Principal } from '../../shared';
 
-
 export const tagRoute: Routes = [
   {
     path: 'tag',
@@ -19,14 +18,16 @@ export const tagRoute: Routes = [
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.tag.home.title'
-    }
+    },
+    canActivate: [UserRouteAccessService]
   }, {
     path: 'tag/:id',
     component: TagDetailComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.tag.home.title'
-    }
+    },
+    canActivate: [UserRouteAccessService]
   }
 ];
 
@@ -38,6 +39,7 @@ export const tagPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.tag.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
   {
@@ -47,6 +49,7 @@ export const tagPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.tag.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
   {
@@ -56,6 +59,7 @@ export const tagPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.tag.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   }
 ];

@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { BlogSharedModule } from '../../shared';
-
 import {
     TagService,
     TagPopupService,
@@ -16,7 +15,7 @@ import {
     tagPopupRoute,
 } from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...tagRoute,
     ...tagPopupRoute,
 ];

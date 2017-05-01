@@ -25,12 +25,12 @@ export class TagDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['tag']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.tagService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.tagService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'tagListModification',
                 content: 'Deleted an tag'
@@ -49,13 +49,13 @@ export class TagDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private tagPopupService: TagPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.tagPopupService
                 .open(TagDeleteDialogComponent, params['id']);
         });

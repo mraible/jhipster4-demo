@@ -29,7 +29,7 @@ export class JhiMetricsMonitoringComponent implements OnInit {
         this.refresh();
     }
 
-    refresh () {
+    refresh() {
         this.updatingMetrics = true;
         this.metricsService.getMetrics().subscribe((metrics) => {
             this.metrics = metrics;
@@ -37,17 +37,17 @@ export class JhiMetricsMonitoringComponent implements OnInit {
             this.servicesStats = {};
             this.cachesStats = {};
             Object.keys(metrics.timers).forEach((key) => {
-                let value = metrics.timers[key];
+                const value = metrics.timers[key];
                 if (key.indexOf('web.rest') !== -1 || key.indexOf('service') !== -1) {
                     this.servicesStats[key] = value;
                 }
             });
             Object.keys(metrics.gauges).forEach((key) => {
                 if (key.indexOf('jcache.statistics') !== -1) {
-                    let value = metrics.gauges[key].value;
+                    const value = metrics.gauges[key].value;
                     // remove gets or puts
-                    let index = key.lastIndexOf('.');
-                    let newKey = key.substr(0, index);
+                    const index = key.lastIndexOf('.');
+                    const newKey = key.substr(0, index);
 
                     // Keep the name of the domain
                     this.cachesStats[newKey] = {
@@ -59,7 +59,7 @@ export class JhiMetricsMonitoringComponent implements OnInit {
         });
     }
 
-    refreshThreadDumpData () {
+    refreshThreadDumpData() {
         this.metricsService.threadDump().subscribe((data) => {
             const modalRef  = this.modalService.open(JhiMetricsMonitoringModalComponent, { size: 'lg'});
             modalRef.componentInstance.threadDump = data;

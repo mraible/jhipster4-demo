@@ -1,5 +1,5 @@
 # blog
-This application was generated using JHipster 4.0.8, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.0.8](https://jhipster.github.io/documentation-archive/v4.0.8).
+This application was generated using JHipster 4.3.0, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.3.0](https://jhipster.github.io/documentation-archive/v4.3.0).
 
 ## Development
 
@@ -98,7 +98,7 @@ Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in
     yarn test
 
 UI end-to-end tests are powered by [Protractor][], which is built on top of WebDriverJS. They're located in [src/test/javascript/e2e](src/test/javascript/e2e)
-and can be run by starting Spring Boot in one terminal (`./mvnw spring-boot:run`) and running the tests (`gulp itest`) in a second one.
+and can be run by starting Spring Boot in one terminal (`./mvnw spring-boot:run`) and running the tests (`yarn run e2e`) in a second one.
 ### Other tests
 
 Performance tests are run by [Gatling][] and written in Scala. They're located in [src/test/gatling](src/test/gatling) and can be run with:
@@ -134,13 +134,13 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 To configure CI for your project, run the ci-cd sub-generator (`yo jhipster:ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
 [JHipster Homepage and latest documentation]: https://jhipster.github.io
-[JHipster 4.0.8 archive]: https://jhipster.github.io/documentation-archive/v4.0.8
+[JHipster 4.3.0 archive]: https://jhipster.github.io/documentation-archive/v4.3.0
 
-[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.0.8/development/
-[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.0.8/docker-compose
-[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.0.8/production/
-[Running tests page]: https://jhipster.github.io/documentation-archive/v4.0.8/running-tests/
-[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.0.8/setting-up-ci/
+[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.3.0/development/
+[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.3.0/docker-compose
+[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.3.0/production/
+[Running tests page]: https://jhipster.github.io/documentation-archive/v4.3.0/running-tests/
+[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.3.0/setting-up-ci/
 
 [Gatling]: http://gatling.io/
 [Node.js]: https://nodejs.org/

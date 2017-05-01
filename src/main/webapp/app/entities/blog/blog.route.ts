@@ -11,7 +11,6 @@ import { BlogDeletePopupComponent } from './blog-delete-dialog.component';
 
 import { Principal } from '../../shared';
 
-
 export const blogRoute: Routes = [
   {
     path: 'blog',
@@ -19,14 +18,16 @@ export const blogRoute: Routes = [
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.blog.home.title'
-    }
+    },
+    canActivate: [UserRouteAccessService]
   }, {
     path: 'blog/:id',
     component: BlogDetailComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.blog.home.title'
-    }
+    },
+    canActivate: [UserRouteAccessService]
   }
 ];
 
@@ -38,6 +39,7 @@ export const blogPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.blog.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
   {
@@ -47,6 +49,7 @@ export const blogPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.blog.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
   {
@@ -56,6 +59,7 @@ export const blogPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.blog.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   }
 ];

@@ -6,17 +6,19 @@ import { JhiLoginModalComponent } from './login.component';
 @Injectable()
 export class LoginModalService {
     private isOpen = false;
-    constructor (
+    constructor(
         private modalService: NgbModal,
     ) {}
 
-    open (): NgbModalRef {
+    open(): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
-        let modalRef = this.modalService.open(JhiLoginModalComponent);
-        modalRef.result.then(result => {
+        const modalRef = this.modalService.open(JhiLoginModalComponent, {
+            container: 'nav'
+        });
+        modalRef.result.then((result) => {
             this.isOpen = false;
         }, (reason) => {
             this.isOpen = false;
