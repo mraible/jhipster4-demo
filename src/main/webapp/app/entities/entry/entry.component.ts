@@ -46,7 +46,7 @@ export class EntryComponent implements OnInit, OnDestroy {
         this.jhiLanguageService.setLocations(['entry']);
     }
 
-    loadAll () {
+    loadAll() {
         this.entryService.query({
             page: this.page,
             size: this.itemsPerPage,
@@ -57,7 +57,7 @@ export class EntryComponent implements OnInit, OnDestroy {
         );
     }
 
-    reset () {
+    reset() {
         this.page = 0;
         this.entries = [];
         this.loadAll();
@@ -79,11 +79,9 @@ export class EntryComponent implements OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: Entry) {
+    trackId(index: number, item: Entry) {
         return item.id;
     }
-
-
 
     byteSize(field) {
         return this.dataUtils.byteSize(field);
@@ -96,8 +94,8 @@ export class EntryComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('entryListModification', (response) => this.reset());
     }
 
-    sort () {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    sort() {
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -112,7 +110,7 @@ export class EntryComponent implements OnInit, OnDestroy {
         }
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

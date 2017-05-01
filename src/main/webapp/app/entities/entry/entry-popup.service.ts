@@ -7,7 +7,7 @@ import { EntryService } from './entry.service';
 @Injectable()
 export class EntryPopupService {
     private isOpen = false;
-    constructor (
+    constructor(
         private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
@@ -15,14 +15,14 @@ export class EntryPopupService {
 
     ) {}
 
-    open (component: Component, id?: number | any): NgbModalRef {
+    open(component: Component, id?: number | any): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
 
         if (id) {
-            this.entryService.find(id).subscribe(entry => {
+            this.entryService.find(id).subscribe((entry) => {
                 entry.date = this.datePipe
                     .transform(entry.date, 'yyyy-MM-ddThh:mm');
                 this.entryModalRef(component, entry);
@@ -33,9 +33,9 @@ export class EntryPopupService {
     }
 
     entryModalRef(component: Component, entry: Entry): NgbModalRef {
-        let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.entry = entry;
-        modalRef.result.then(result => {
+        modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         }, (reason) => {

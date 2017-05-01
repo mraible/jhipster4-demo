@@ -25,12 +25,12 @@ export class EntryDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['entry']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.entryService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.entryService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'entryListModification',
                 content: 'Deleted an entry'
@@ -49,13 +49,13 @@ export class EntryDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private entryPopupService: EntryPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.entryPopupService
                 .open(EntryDeleteDialogComponent, params['id']);
         });

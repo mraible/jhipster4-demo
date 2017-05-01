@@ -1,7 +1,7 @@
 version: '2'
 services:
     blog-postgresql:
-        image: postgres:9.5.4
+        image: postgres:9.6.2
         # volumes:
         #     - ~/volumes/jhipster/blog/postgresql/:/var/lib/postgresql/
         environment:

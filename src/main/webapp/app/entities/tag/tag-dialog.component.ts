@@ -9,6 +9,7 @@ import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
 import { TagService } from './tag.service';
 import { Entry, EntryService } from '../entry';
+
 @Component({
     selector: 'jhi-tag-dialog',
     templateUrl: './tag-dialog.component.html'
@@ -37,35 +38,40 @@ export class TagDialogComponent implements OnInit {
         this.entryService.query().subscribe(
             (res: Response) => { this.entries = res.json(); }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.tag.id !== undefined) {
             this.tagService.update(this.tag)
                 .subscribe((res: Tag) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.tagService.create(this.tag)
                 .subscribe((res: Tag) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
-    private onSaveSuccess (result: Tag) {
+    private onSaveSuccess(result: Tag) {
         this.eventManager.broadcast({ name: 'tagListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -94,13 +100,13 @@ export class TagPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private tagPopupService: TagPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.tagPopupService
                     .open(TagDialogComponent, params['id']);
@@ -108,7 +114,6 @@ export class TagPopupComponent implements OnInit, OnDestroy {
                 this.modalRef = this.tagPopupService
                     .open(TagDialogComponent);
             }
-
         });
     }
 

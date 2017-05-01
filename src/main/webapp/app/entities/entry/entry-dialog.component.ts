@@ -10,6 +10,7 @@ import { EntryPopupService } from './entry-popup.service';
 import { EntryService } from './entry.service';
 import { Blog, BlogService } from '../blog';
 import { Tag, TagService } from '../tag';
+
 @Component({
     selector: 'jhi-entry-dialog',
     templateUrl: './entry-dialog.component.html'
@@ -52,47 +53,52 @@ export class EntryDialogComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData($event, entry, field, isImage) {
-        if ($event.target.files && $event.target.files[0]) {
-            let $file = $event.target.files[0];
-            if (isImage && !/^image\//.test($file.type)) {
+    setFileData(event, entry, field, isImage) {
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            if (isImage && !/^image\//.test(file.type)) {
                 return;
             }
-            this.dataUtils.toBase64($file, (base64Data) => {
+            this.dataUtils.toBase64(file, (base64Data) => {
                 entry[field] = base64Data;
-                entry[`${field}ContentType`] = $file.type;
+                entry[`${field}ContentType`] = file.type;
             });
         }
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.entry.id !== undefined) {
             this.entryService.update(this.entry)
                 .subscribe((res: Entry) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.entryService.create(this.entry)
                 .subscribe((res: Entry) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
-    private onSaveSuccess (result: Entry) {
+    private onSaveSuccess(result: Entry) {
         this.eventManager.broadcast({ name: 'entryListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -125,13 +131,13 @@ export class EntryPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private entryPopupService: EntryPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.entryPopupService
                     .open(EntryDialogComponent, params['id']);
@@ -139,7 +145,6 @@ export class EntryPopupComponent implements OnInit, OnDestroy {
                 this.modalRef = this.entryPopupService
                     .open(EntryDialogComponent);
             }
-
         });
     }
 

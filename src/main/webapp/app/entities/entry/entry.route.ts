@@ -11,7 +11,6 @@ import { EntryDeletePopupComponent } from './entry-delete-dialog.component';
 
 import { Principal } from '../../shared';
 
-
 export const entryRoute: Routes = [
   {
     path: 'entry',
@@ -19,14 +18,16 @@ export const entryRoute: Routes = [
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.entry.home.title'
-    }
+    },
+    canActivate: [UserRouteAccessService]
   }, {
     path: 'entry/:id',
     component: EntryDetailComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.entry.home.title'
-    }
+    },
+    canActivate: [UserRouteAccessService]
   }
 ];
 
@@ -38,6 +39,7 @@ export const entryPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.entry.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
   {
@@ -47,6 +49,7 @@ export const entryPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.entry.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   },
   {
@@ -56,6 +59,7 @@ export const entryPopupRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'blogApp.entry.home.title'
     },
+    canActivate: [UserRouteAccessService],
     outlet: 'popup'
   }
 ];

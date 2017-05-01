@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
 import { PaginationUtil } from 'ng-jhipster';
 
 import { UserMgmtComponent } from './user-management.component';
@@ -11,14 +10,13 @@ import { UserDeleteDialogComponent } from './user-management-delete-dialog.compo
 
 import { Principal } from '../../shared';
 
-
 @Injectable()
 export class UserResolve implements CanActivate {
 
   constructor(private principal: Principal) { }
 
   canActivate() {
-    return this.principal.identity().then(account => this.principal.hasAnyAuthority(['ROLE_ADMIN']));
+    return this.principal.identity().then((account) => this.principal.hasAnyAuthority(['ROLE_ADMIN']));
   }
 }
 
@@ -28,8 +26,8 @@ export class UserResolvePagingParams implements Resolve<any> {
   constructor(private paginationUtil: PaginationUtil) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-      let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+      const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+      const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
       return {
           page: this.paginationUtil.parsePage(page),
           predicate: this.paginationUtil.parsePredicate(sort),

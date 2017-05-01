@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Rx';
+import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+
 import { Blog } from './blog.model';
 import { BlogService } from './blog.service';
 
@@ -12,8 +14,10 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
     blog: Blog;
     private subscription: any;
+    private eventSubscriber: Subscription;
 
     constructor(
+        private eventManager: EventManager,
         private jhiLanguageService: JhiLanguageService,
         private blogService: BlogService,
         private route: ActivatedRoute
@@ -22,13 +26,14 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
+        this.registerChangeInBlogs();
     }
 
-    load (id) {
-        this.blogService.find(id).subscribe(blog => {
+    load(id) {
+        this.blogService.find(id).subscribe((blog) => {
             this.blog = blog;
         });
     }
@@ -38,6 +43,10 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.eventManager.destroy(this.eventSubscriber);
     }
 
+    registerChangeInBlogs() {
+        this.eventSubscriber = this.eventManager.subscribe('blogListModification', (response) => this.load(this.blog.id));
+    }
 }

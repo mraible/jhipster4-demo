@@ -25,12 +25,12 @@ export class BlogDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['blog']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.blogService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.blogService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'blogListModification',
                 content: 'Deleted an blog'
@@ -49,13 +49,13 @@ export class BlogDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private blogPopupService: BlogPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.blogPopupService
                 .open(BlogDeleteDialogComponent, params['id']);
         });

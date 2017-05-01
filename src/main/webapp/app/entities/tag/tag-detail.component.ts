@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Rx';
+import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+
 import { Tag } from './tag.model';
 import { TagService } from './tag.service';
 
@@ -12,8 +14,10 @@ export class TagDetailComponent implements OnInit, OnDestroy {
 
     tag: Tag;
     private subscription: any;
+    private eventSubscriber: Subscription;
 
     constructor(
+        private eventManager: EventManager,
         private jhiLanguageService: JhiLanguageService,
         private tagService: TagService,
         private route: ActivatedRoute
@@ -22,13 +26,14 @@ export class TagDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
+        this.registerChangeInTags();
     }
 
-    load (id) {
-        this.tagService.find(id).subscribe(tag => {
+    load(id) {
+        this.tagService.find(id).subscribe((tag) => {
             this.tag = tag;
         });
     }
@@ -38,6 +43,10 @@ export class TagDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.eventManager.destroy(this.eventSubscriber);
     }
 
+    registerChangeInTags() {
+        this.eventSubscriber = this.eventManager.subscribe('tagListModification', (response) => this.load(this.tag.id));
+    }
 }
