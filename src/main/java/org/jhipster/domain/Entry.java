@@ -36,7 +36,7 @@ public class Entry implements Serializable {
     private String content;
 
     @NotNull
-    @Column(name = "jhi_date", nullable = false)
+    @Column(name = "date", nullable = false)
     private ZonedDateTime date;
 
     @ManyToOne
