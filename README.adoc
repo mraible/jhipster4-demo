@@ -28,7 +28,7 @@ ifdef::env-github[]
 endif::[]
 :toc:
 
-This article shows you how to build a simple blog application with https://jhipster.github.io/2017/03/01/jhipster-release-4.0.7.html[JHipster 4.0.7]. You can also https://www.youtube.com/watch?v=XRREt1KB4Y8[watch a video of this tutorial on YouTube]. 
+This article shows you how to build a simple blog application with https://jhipster.github.io/2017/04/13/jhipster-release-4.3.0.html[JHipster 4.3.0]. You can also https://www.youtube.com/watch?v=XRREt1KB4Y8[watch a video of this tutorial on YouTube].
 
 ifdef::env-github[]
 TIP: It appears you're reading this document on GitHub. If you want a prettier view, install https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia[Asciidoctor.js Live Preview for Chrome], then view the https://raw.githubusercontent.com/mraible/jhipster4-demo/master/README.adoc[raw document]. Another option is to use the http://gist.asciidoctor.org/?github-mraible/jhipster4-demo//README.adoc[DocGist view].
@@ -72,7 +72,7 @@ The http://jhipster.github.io/installation/[Installing JHipster] instructions sh
 To create a project, open a terminal window and create a directory. For example, `mdkdir blog`. Navigate into the directory and run `yo jhipster`. You'll be asked a number of questions about the type of application you want to create and what features you'd like to include. The screenshot below shows the choices I made to create a simple blog application with Angular.
 
 .Generating the application
-image::static/generating-blog.png[Generating the application, 1082, scaledwidth=100%]
+image::static/generating-blog.png[Generating the application, 1442, scaledwidth=100%]
 
 If you'd like to create the same application I did, you can place the following `.yo-rc.json` file in an empty directory and run `yo jhipster` in it. You won't be prompted to answer any questions because the answers are already in `.yo-rc.json`.
 
@@ -80,7 +80,11 @@ If you'd like to create the same application I did, you can place the following 
 ----
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.5",
+    "promptValues": {
+      "packageName": "org.jhipster",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "4.3.0",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -97,7 +101,7 @@ If you'd like to create the same application I did, you can place the following 
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
-    "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
+    "jwtSecretKey": "32c4cdc8db3649891c8ea40c693caa074835fc21",
     "clientFramework": "angular2",
     "useSass": true,
     "clientPackageManager": "yarn",
@@ -120,7 +124,7 @@ If you'd like to create the same application I did, you can place the following 
 The project creation process will take a couple minutes to run, depending on your internet connection speed. When it's finished, you should see output like the following.
 
 .Generation success
-image::static/generation-success.png[Generation success, 1082, scaledwidth=100%]
+image::static/generation-success.png[Generation success, 1222, scaledwidth=100%]
 
 Run `./mvnw` to start the application and navigate to http://localhost:8080 in your favorite browser. The first thing you'll notice is a dapper-looking fellow explaining how you can sign in or register.
 
@@ -552,4 +556,4 @@ The source code for this project is available on GitHub at https://github.com/mr
 
 == About the author
 
-Matt Raible is a web developer and Java Champion. He loves to architect and build slick-looking UIs using CSS and JavaScript. When he's not evangelizing https://stormpath.com[Stormpath] and open source, he likes to ski with his family, drive his VWs and enjoy craft beer. He blogs on https://stormpath.com/blog[stormpath.com/blog], his https://raibledesigns.com/[personal blog], and you can find him on Twitter (https://twitter.com/mraible[@mraible]). He is a developer on the JHipster team and authored the https://www.infoq.com/minibooks/jhipster-2-mini-book[JHipster Mini-Book] for InfoQ.
+Matt Raible is a web developer and Java Champion. He loves to architect and build slick-looking UIs using CSS and JavaScript. When he's not evangelizing https://okta.com[Okta] and open source, he likes to ski with his family, drive his VWs and enjoy craft beer. He blogs on http://developer.okta.com/blog[developer.okta.com/blog], his https://raibledesigns.com/[personal blog], and you can find him on Twitter (https://twitter.com/mraible[@mraible]). He is a developer on the JHipster team and authored the https://www.infoq.com/minibooks/jhipster-2-mini-book[JHipster Mini-Book] for InfoQ.
