@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
-import { OnInit } from '@angular/core';
+/* tslint:disable max-line-length */
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { DateUtils, DataUtils, EventManager } from 'ng-jhipster';
+import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 import { BlogTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { TagDetailComponent } from '../../../../../../main/webapp/app/entities/tag/tag-detail.component';
@@ -22,21 +22,18 @@ describe('Component Tests', () => {
                 imports: [BlogTestModule],
                 declarations: [TagDetailComponent],
                 providers: [
-                    DateUtils,
-                    DataUtils,
+                    JhiDateUtils,
+                    JhiDataUtils,
                     DatePipe,
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
                     TagService,
-                    EventManager
+                    JhiEventManager
                 ]
-            }).overrideComponent(TagDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(TagDetailComponent, '')
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -45,10 +42,10 @@ describe('Component Tests', () => {
             service = fixture.debugElement.injector.get(TagService);
         });
 
-
         describe('OnInit', () => {
             it('Should call load all on init', () => {
             // GIVEN
+
             spyOn(service, 'find').and.returnValue(Observable.of(new Tag(10)));
 
             // WHEN
@@ -56,7 +53,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.tag).toEqual(jasmine.objectContaining({id:10}));
+            expect(comp.tag).toEqual(jasmine.objectContaining({id: 10}));
             });
         });
     });

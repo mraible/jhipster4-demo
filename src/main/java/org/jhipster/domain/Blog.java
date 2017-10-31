@@ -36,6 +36,7 @@ public class Blog implements Serializable {
     @ManyToOne
     private User user;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -82,6 +83,7 @@ public class Blog implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -92,23 +94,23 @@ public class Blog implements Serializable {
             return false;
         }
         Blog blog = (Blog) o;
-        if (blog.id == null || id == null) {
+        if (blog.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, blog.id);
+        return Objects.equals(getId(), blog.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Blog{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", handle='" + handle + "'" +
-            '}';
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", handle='" + getHandle() + "'" +
+            "}";
     }
 }

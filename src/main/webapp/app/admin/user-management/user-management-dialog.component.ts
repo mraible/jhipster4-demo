@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { UserModalService } from './user-modal.service';
 import { JhiLanguageHelper, User, UserService } from '../../shared';
@@ -21,18 +21,19 @@ export class UserMgmtDialogComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private languageHelper: JhiLanguageHelper,
-        private jhiLanguageService: JhiLanguageService,
         private userService: UserService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [];
+        this.userService.authorities().subscribe((authorities) => {
+            this.authorities = authorities;
+        });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
-        this.jhiLanguageService.setLocations(['user-management']);
     }
 
     clear() {
@@ -76,9 +77,9 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['login'] ) {
-                this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
+                this.modalRef = this.userModalService.open(UserMgmtDialogComponent as Component, params['login']);
             } else {
-                this.modalRef = this.userModalService.open(UserMgmtDialogComponent);
+                this.modalRef = this.userModalService.open(UserMgmtDialogComponent as Component);
             }
         });
     }

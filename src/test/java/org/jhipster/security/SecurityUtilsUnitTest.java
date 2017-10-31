@@ -29,6 +29,15 @@ public class SecurityUtilsUnitTest {
     }
 
     @Test
+    public void testgetCurrentUserJWT() {
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "token"));
+        SecurityContextHolder.setContext(securityContext);
+        String jwt = SecurityUtils.getCurrentUserJWT();
+        assertThat(jwt).isEqualTo("token");
+    }
+
+    @Test
     public void testIsAuthenticated() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
@@ -47,4 +56,17 @@ public class SecurityUtilsUnitTest {
         boolean isAuthenticated = SecurityUtils.isAuthenticated();
         assertThat(isAuthenticated).isFalse();
     }
+
+    @Test
+    public void testIsCurrentUserInRole() {
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("user", "user", authorities));
+        SecurityContextHolder.setContext(securityContext);
+
+        assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)).isTrue();
+        assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)).isFalse();
+    }
+
 }

@@ -4,31 +4,43 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { Entry } from './entry.model';
 import { EntryService } from './entry.service';
+
 @Injectable()
 export class EntryPopupService {
-    private isOpen = false;
+    private ngbModalRef: NgbModalRef;
+
     constructor(
         private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private entryService: EntryService
-    ) {}
 
-    open(component: Component, id?: number | any): NgbModalRef {
-        if (this.isOpen) {
-            return;
-        }
-        this.isOpen = true;
+    ) {
+        this.ngbModalRef = null;
+    }
 
-        if (id) {
-            this.entryService.find(id).subscribe((entry) => {
-                entry.date = this.datePipe
-                    .transform(entry.date, 'yyyy-MM-ddThh:mm');
-                this.entryModalRef(component, entry);
-            });
-        } else {
-            return this.entryModalRef(component, new Entry());
-        }
+    open(component: Component, id?: number | any): Promise<NgbModalRef> {
+        return new Promise<NgbModalRef>((resolve, reject) => {
+            const isOpen = this.ngbModalRef !== null;
+            if (isOpen) {
+                resolve(this.ngbModalRef);
+            }
+
+            if (id) {
+                this.entryService.find(id).subscribe((entry) => {
+                    entry.date = this.datePipe
+                        .transform(entry.date, 'yyyy-MM-ddTHH:mm:ss');
+                    this.ngbModalRef = this.entryModalRef(component, entry);
+                    resolve(this.ngbModalRef);
+                });
+            } else {
+                // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
+                setTimeout(() => {
+                    this.ngbModalRef = this.entryModalRef(component, new Entry());
+                    resolve(this.ngbModalRef);
+                }, 0);
+            }
+        });
     }
 
     entryModalRef(component: Component, entry: Entry): NgbModalRef {
@@ -36,10 +48,10 @@ export class EntryPopupService {
         modalRef.componentInstance.entry = entry;
         modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
-            this.isOpen = false;
+            this.ngbModalRef = null;
         }, (reason) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
-            this.isOpen = false;
+            this.ngbModalRef = null;
         });
         return modalRef;
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { User, UserService } from '../../shared';
 import { UserModalService } from './user-modal.service';
@@ -15,12 +15,10 @@ export class UserMgmtDeleteDialogComponent {
     user: User;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private userService: UserService,
         public activeModal: NgbActiveModal,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
-        this.jhiLanguageService.setLocations(['user-management']);
     }
 
     clear() {
@@ -34,7 +32,6 @@ export class UserMgmtDeleteDialogComponent {
             this.activeModal.dismiss(true);
         });
     }
-
 }
 
 @Component({
@@ -53,7 +50,7 @@ export class UserDeleteDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.userModalService.open(UserMgmtDeleteDialogComponent, params['login']);
+            this.modalRef = this.userModalService.open(UserMgmtDeleteDialogComponent as Component, params['login']);
         });
     }
 

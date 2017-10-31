@@ -4,16 +4,20 @@ import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgJhipsterModule } from 'ng-jhipster';
-import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
     imports: [
         NgbModule.forRoot(),
         NgJhipsterModule.forRoot({
+            // set below to true to make alerts look like toast
+            alertAsToast: false,
             i18nEnabled: true,
             defaultI18nLang: 'en'
         }),
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        CookieModule.forRoot()
     ],
     exports: [
         FormsModule,

@@ -1,7 +1,7 @@
 = Get Started with JHipster 4
 :author: Matt Raible
 :email:  matt@raibledesigns.com
-:revnumber: 1.1
+:revnumber: 1.2
 :revdate:   {docdate}
 :subject: JHipster
 :keywords: JHipster, Angular, Spring Boot, Bootstrap 4
@@ -28,7 +28,7 @@ ifdef::env-github[]
 endif::[]
 :toc:
 
-This article shows you how to build a simple blog application with https://jhipster.github.io/2017/04/13/jhipster-release-4.3.0.html[JHipster 4.3.0]. You can also https://www.youtube.com/watch?v=XRREt1KB4Y8[watch a video of this tutorial on YouTube].
+This article shows you how to build a simple blog application with http://www.jhipster.tech/2017/10/27/jhipster-release-4.10.2.html[JHipster 4.10.2]. You can also https://www.youtube.com/watch?v=XRREt1KB4Y8[watch a video of this tutorial on YouTube].
 
 ifdef::env-github[]
 TIP: It appears you're reading this document on GitHub. If you want a prettier view, install https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia[Asciidoctor.js Live Preview for Chrome], then view the https://raw.githubusercontent.com/mraible/jhipster4-demo/master/README.adoc[raw document]. Another option is to use the http://gist.asciidoctor.org/?github-mraible/jhipster4-demo//README.adoc[DocGist view].
@@ -43,7 +43,7 @@ If you'd like to get right to it, the https://github.com/mraible/jhipster4-demo[
 
 JHipster is one of those open-source projects you stumble upon and immediately think, "`Of course!`" It combines three very successful frameworks in web development: Bootstrap, Angular, and Spring Boot. Bootstrap was one of the first dominant web-component frameworks. Its largest appeal was that it only required a bit of HTML and it worked! All the efforts we made in the Java community to develop web components were shown a better path by Bootstrap. It leveled the playing field in HTML/CSS development, much like Apple's Human Interface Guidelines did for iOS apps.
 
-JHipster was started by Julien Dubois in October 2013 (Julien's first commit was on https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436[October 21, 2013]). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 115 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 16 developers and over 280 contributors. You can find its homepage at http://jhipster.github.io/[http://jhipster.github.io]. If you look at https://github.com/jhipster/generator-jhipster[the project on GitHub], you can see it's mostly written in JavaScript (42%) and Java (27%).
+JHipster was started by Julien Dubois in October 2013 (Julien's first commit was on https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436[October 21, 2013]). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 115 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 16 developers and over 280 contributors. You can find its homepage at http://www.jhipster.tech/[http://www.jhipster.tech]. If you look at https://github.com/jhipster/generator-jhipster[the project on GitHub], you can see it's mostly written in JavaScript (42%) and Java (27%).
 
 At its core, JHipster is a http://yeoman.io/[Yeoman] generator. Yeoman is a code generator that you run with a `yo` command to generate complete applications or useful pieces of an application. Yeoman generators promote what the Yeoman team calls the "`Yeoman workflow`". This is an opinionated client-side stack of tools that can help developers quickly build beautiful web applications. It takes care of providing everything needed to get working without the normal pains associated with a manual setup.
 
@@ -53,7 +53,7 @@ NOTE: When I say "AngularJS", I mean Angular 1.x. "Angular" is the forward-looki
 
 == Install JHipster 4
 
-The http://jhipster.github.io/installation/[Installing JHipster] instructions show you all the tools you'll need to use a released version of JHipster.
+The http://www.jhipster.tech/installation/[Installing JHipster] instructions show you all the tools you'll need to use a released version of JHipster.
 
 . Install Java 8 http://www.oracle.com/technetwork/java/javase/downloads/index.html[from Oracle].
 . Install Git from https://git-scm.com.
@@ -80,11 +80,7 @@ If you'd like to create the same application I did, you can place the following 
 ----
 {
   "generator-jhipster": {
-    "promptValues": {
-      "packageName": "org.jhipster",
-      "nativeLanguage": "en"
-    },
-    "jhipsterVersion": "4.3.0",
+    "jhipsterVersion": "4.10.2",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -95,14 +91,14 @@ If you'd like to create the same application I did, you can place the following 
     "websocket": false,
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
-    "prodDatabaseType": "mysql",
+    "prodDatabaseType": "postgresql",
     "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
-    "jwtSecretKey": "32c4cdc8db3649891c8ea40c693caa074835fc21",
-    "clientFramework": "angular2",
+    "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
+    "clientFramework": "angularX",
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
@@ -176,7 +172,7 @@ In addition, you should have integration tests to verify that everything works a
 
 The good news is JHipster can generate all of this code for you, including integration tests and performance tests. In addition, if you have entities with relationships, it will generate the necessary schema to support them (with foreign keys), and the TypeScript and HTML code to manage them. You can also set up validation to require certain fields as well as control their length.
 
-JHipster supports several methods of code generation. The first uses its https://jhipster.github.io/creating-an-entity/[entity sub-generator]. The entity sub-generator is a command-line tool that prompts you with questions which you answer. https://jhipster.github.io/jdl-studio/[JDL-Studio] is a browser-based tool for defining your domain model with JHipster Domain Language (JDL). Finally, https://jhipster.github.io/jhipster-uml/[JHipster-UML] is an option for those that like UML. Supported UML editors include https://www.modeliosoft.com/[Modelio], http://www.umldesigner.org/[UML Designer], https://www.genmymodel.com/[GenMyModel] and http://www.visual-paradigm.com/[Visual Paradigm]. I like the visual nature of JDL-Studio, so I'll use it for this project.
+JHipster supports several methods of code generation. The first uses its https://www.jhipster.tech/creating-an-entity/[entity sub-generator]. The entity sub-generator is a command-line tool that prompts you with questions which you answer. https://www.jhipster.tech/jdl-studio/[JDL-Studio] is a browser-based tool for defining your domain model with JHipster Domain Language (JDL). Finally, https://www.jhipster.tech/jhipster-uml/[JHipster-UML] is an option for those that like UML. Supported UML editors include https://www.modeliosoft.com/[Modelio], http://www.umldesigner.org/[UML Designer], https://www.genmymodel.com/[GenMyModel] and http://www.visual-paradigm.com/[Visual Paradigm]. I like the visual nature of JDL-Studio, so I'll use it for this project.
 
 Below is the entity diagram and JDL code needed to generate a simple blog with blogs, entries and tags.
 
@@ -242,7 +238,7 @@ git commit -m "Entities generated"
 
 == Add Business Logic
 
-TIP: To configure an IDE with your JHipster project, see https://jhipster.github.io/configuring-ide/[Configuring your IDE]. Instructions exist for Eclipse, IntelliJ IDEA, Visual Studio Code, and NetBeans.
+TIP: To configure an IDE with your JHipster project, see https://www.jhipster.tech/configuring-ide/[Configuring your IDE]. Instructions exist for Eclipse, IntelliJ IDEA, Visual Studio Code, and NetBeans.
 
 To add more security around blogs and entries, open `BlogResource.java` and find the `getAllBlogs()` method. Change the following line:
 
@@ -407,7 +403,7 @@ git commit -m "UI enhancements"
 
 A JHipster application can be deployed anywhere a Spring Boot application can be deployed.
 
-JHipster ships with support for deploying to https://jhipster.github.io/cloudfoundry/[Cloud Foundry], https://jhipster.github.io/heroku/[Heroku], https://jhipster.github.io/kubernetes/[Kubernetes], https://jhipster.github.io/aws/[AWS], and https://jhipster.github.io/boxfuse/[AWS with Boxfuse]. I'm using Heroku in this example because it doesn't cost me anything to host it.
+JHipster ships with support for deploying to https://www.jhipster.tech/cloudfoundry/[Cloud Foundry], https://www.jhipster.tech/heroku/[Heroku], https://www.jhipster.tech/kubernetes/[Kubernetes], https://www.jhipster.tech/aws/[AWS], and https://www.jhipster.tech/boxfuse/[AWS with Boxfuse]. I'm using Heroku in this example because it doesn't cost me anything to host it.
 
 When you prepare a JHipster application for
 production, it's recommended to use the pre-configured "`production`" profile. With Maven, you can package your
@@ -486,7 +482,7 @@ Password (typing will be hidden):
 Logged in as matt@raibledesigns.com
 ----
 
-I ran `yo jhipster:heroku` as recommended in the http://jhipster.github.io/heroku/[Deploying to Heroku] documentation. I used the name "`jhipster4-demo`" for my application when prompted.
+I ran `yo jhipster:heroku` as recommended in the http://www.jhipster.tech/heroku/[Deploying to Heroku] documentation. I used the name "`jhipster4-demo`" for my application when prompted.
 
 ----
 $ yo jhipster:heroku
@@ -538,7 +534,7 @@ git commit -m "Deploy to Heroku"
 
 == Learn More
 
-I hope you've enjoyed learning how JHipster can help you develop hip web applications! It's a nifty project, with an easy-to-use entity generator, a pretty UI and many Spring Boot best-practice patterns. The project team follows five simple https://jhipster.github.io/policies/[policies], paraphrased here:
+I hope you've enjoyed learning how JHipster can help you develop hip web applications! It's a nifty project, with an easy-to-use entity generator, a pretty UI and many Spring Boot best-practice patterns. The project team follows five simple https://www.jhipster.tech/policies/[policies], paraphrased here:
 
 1. The development team votes on policies.
 2. JHipster uses technologies with their default configurations as much as possible.

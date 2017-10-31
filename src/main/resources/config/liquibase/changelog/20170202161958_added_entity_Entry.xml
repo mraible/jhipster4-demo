@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
@@ -29,7 +29,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="date" type="timestamp">
+            <column name="jhi_date" type="timestamp">
                 <constraints nullable="false" />
             </column>
 
@@ -39,7 +39,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="entry" columnName="date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="entry" columnName="jhi_date" columnDataType="datetime"/>
         
         <createTable tableName="entry_tag">
             <column name="tags_id" type="bigint">
@@ -53,4 +53,5 @@
         <addPrimaryKey columnNames="entries_id, tags_id" tableName="entry_tag"/>
         
     </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

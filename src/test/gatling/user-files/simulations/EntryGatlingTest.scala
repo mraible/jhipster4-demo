@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the Blog entity.
+ * Performance test for the Entry entity.
  */
-class BlogGatlingTest extends Simulation {
+class EntryGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -17,7 +17,7 @@ class BlogGatlingTest extends Simulation {
     // Log failed HTTP requests
     //context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
 
-    val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:8080"""
+    val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://localhost:8080"""
 
     val httpConf = http
         .baseURL(baseURL)
@@ -42,7 +42,7 @@ class BlogGatlingTest extends Simulation {
         "Authorization" -> "${access_token}"
     )
 
-    val scn = scenario("Test the Blog entity")
+    val scn = scenario("Test the Entry entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -60,26 +60,26 @@ class BlogGatlingTest extends Simulation {
         .check(status.is(200)))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all blogs")
-            .get("/api/blogs")
+            exec(http("Get all entries")
+            .get("/api/entries")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new blog")
-            .post("/api/blogs")
+            .exec(http("Create new entry")
+            .post("/api/entries")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "handle":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "content":null, "date":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_blog_url"))).exitHereIfFailed
+            .check(headerRegex("Location", "(.*)").saveAs("new_entry_url"))).exitHereIfFailed
             .pause(10)
             .repeat(5) {
-                exec(http("Get created blog")
-                .get("${new_blog_url}")
+                exec(http("Get created entry")
+                .get("${new_entry_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created blog")
-            .delete("${new_blog_url}")
+            .exec(http("Delete created entry")
+            .delete("${new_entry_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }
@@ -87,6 +87,6 @@ class BlogGatlingTest extends Simulation {
     val users = scenario("Users").exec(scn)
 
     setUp(
-        users.inject(rampUsers(100) over (1 minutes))
+        users.inject(rampUsers(Integer.getInteger("users", 100)) over (Integer.getInteger("ramp", 1) minutes))
     ).protocols(httpConf)
 }
