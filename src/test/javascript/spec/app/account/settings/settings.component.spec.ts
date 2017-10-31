@@ -7,7 +7,6 @@ import { SettingsComponent } from '../../../../../../main/webapp/app/account/set
 import { MockAccountService } from '../../../helpers/mock-account.service';
 import { MockPrincipal } from '../../../helpers/mock-principal.service';
 
-
 describe('Component Tests', () => {
 
     describe('SettingsComponent', () => {
@@ -35,11 +34,8 @@ describe('Component Tests', () => {
                         useValue: null
                     },
                 ]
-            }).overrideComponent(SettingsComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(SettingsComponent, '')
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -49,9 +45,9 @@ describe('Component Tests', () => {
             mockPrincipal = fixture.debugElement.injector.get(Principal);
         });
 
-        it('should send the current identity upon save', function () {
+        it('should send the current identity upon save', () => {
             // GIVEN
-            let accountValues = {
+            const accountValues = {
                 firstName: 'John',
                 lastName: 'Doe',
 
@@ -72,9 +68,9 @@ describe('Component Tests', () => {
             expect(comp.settingsAccount).toEqual(accountValues);
         });
 
-        it('should notify of success upon successful save', function () {
+        it('should notify of success upon successful save', () => {
             // GIVEN
-            let accountValues = {
+            const accountValues = {
                 firstName: 'John',
                 lastName: 'Doe'
             };
@@ -88,7 +84,7 @@ describe('Component Tests', () => {
             expect(comp.success).toBe('OK');
         });
 
-        it('should notify of error upon failed save', function () {
+        it('should notify of error upon failed save', () => {
             // GIVEN
             mockAuth.saveSpy.and.returnValue(Observable.throw('ERROR'));
 

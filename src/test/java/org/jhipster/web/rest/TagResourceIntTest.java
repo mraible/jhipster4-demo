@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static org.jhipster.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -62,10 +63,11 @@ public class TagResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        TagResource tagResource = new TagResource(tagRepository);
+        final TagResource tagResource = new TagResource(tagRepository);
         this.restTagMockMvc = MockMvcBuilders.standaloneSetup(tagResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -118,7 +120,7 @@ public class TagResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(tag)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Tag in the database
         List<Tag> tagList = tagRepository.findAll();
         assertThat(tagList).hasSize(databaseSizeBeforeCreate);
     }
@@ -240,5 +242,14 @@ public class TagResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Tag.class);
+        Tag tag1 = new Tag();
+        tag1.setId(1L);
+        Tag tag2 = new Tag();
+        tag2.setId(tag1.getId());
+        assertThat(tag1).isEqualTo(tag2);
+        tag2.setId(2L);
+        assertThat(tag1).isNotEqualTo(tag2);
+        tag1.setId(null);
+        assertThat(tag1).isNotEqualTo(tag2);
     }
 }

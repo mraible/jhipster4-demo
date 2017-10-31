@@ -4,9 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { LoginModalService } from '../../../../../../../main/webapp/app/shared';
 import { BlogTestModule } from '../../../../test.module';
 import { PasswordResetFinishComponent } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.component';
-import { PasswordResetFinish } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
+import { PasswordResetFinishService } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
 import { MockActivatedRoute } from '../../../../helpers/mock-route.service';
-
 
 describe('Component Tests', () => {
 
@@ -20,7 +19,7 @@ describe('Component Tests', () => {
                 imports: [BlogTestModule],
                 declarations: [PasswordResetFinishComponent],
                 providers: [
-                    PasswordResetFinish,
+                    PasswordResetFinishService,
                     {
                         provide: LoginModalService,
                         useValue: null
@@ -40,15 +39,12 @@ describe('Component Tests', () => {
                         useValue: new ElementRef(null)
                     }
                 ]
-            }).overrideComponent(PasswordResetFinishComponent, {
-                set: {
-                    template: ''
-                }
-            }).createComponent(PasswordResetFinishComponent);
+            }).overrideTemplate(PasswordResetFinishComponent, '')
+            .createComponent(PasswordResetFinishComponent);
             comp = fixture.componentInstance;
         });
 
-        it('should define its initial state', function () {
+        it('should define its initial state', () => {
             comp.ngOnInit();
 
             expect(comp.keyMissing).toBeFalsy();
@@ -58,8 +54,8 @@ describe('Component Tests', () => {
 
         it('sets focus after the view has been initialized',
             inject([ElementRef], (elementRef: ElementRef) => {
-                let element = fixture.nativeElement;
-                let node = {
+                const element = fixture.nativeElement;
+                const node = {
                     focus() {}
                 };
 

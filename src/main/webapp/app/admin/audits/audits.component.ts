@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ParseLinks, JhiLanguageService} from 'ng-jhipster';
+import { JhiParseLinks } from 'ng-jhipster';
 
 import { Audit } from './audit.model';
 import { AuditsService } from './audits.service';
 import { ITEMS_PER_PAGE } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
   selector: 'jhi-audit',
@@ -21,19 +20,17 @@ export class AuditsComponent implements OnInit {
     reverse: boolean;
     toDate: string;
     totalItems: number;
+    datePipe: DatePipe;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private auditsService: AuditsService,
-        private parseLinks: ParseLinks,
-        private paginationConfig: PaginationConfig,
-        private datePipe: DatePipe
+        private parseLinks: JhiParseLinks
     ) {
-        this.jhiLanguageService.setLocations(['audits']);
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 1;
         this.reverse = false;
         this.orderProp = 'timestamp';
+        this.datePipe = new DatePipe('en');
     }
 
     getAudits() {

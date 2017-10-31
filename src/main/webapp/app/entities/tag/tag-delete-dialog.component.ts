@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
@@ -17,12 +17,10 @@ export class TagDeleteDialogComponent {
     tag: Tag;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private tagService: TagService,
         public activeModal: NgbActiveModal,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
-        this.jhiLanguageService.setLocations(['tag']);
     }
 
     clear() {
@@ -46,7 +44,6 @@ export class TagDeleteDialogComponent {
 })
 export class TagDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -56,8 +53,8 @@ export class TagDeletePopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.tagPopupService
-                .open(TagDeleteDialogComponent, params['id']);
+            this.tagPopupService
+                .open(TagDeleteDialogComponent as Component, params['id']);
         });
     }
 

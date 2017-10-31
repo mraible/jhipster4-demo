@@ -1,21 +1,19 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
-import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {
     BlogSharedLibsModule,
     BlogSharedCommonModule,
     CSRFService,
-    AuthService,
     AuthServerProvider,
     AccountService,
     UserService,
     StateStorageService,
     LoginService,
     LoginModalService,
+    JhiLoginModalComponent,
     Principal,
     HasAnyAuthorityDirective,
-    JhiLoginModalComponent
 } from './';
 
 @NgModule({
@@ -28,7 +26,6 @@ import {
         HasAnyAuthorityDirective
     ],
     providers: [
-        CookieService,
         LoginService,
         LoginModalService,
         AccountService,
@@ -36,7 +33,6 @@ import {
         Principal,
         CSRFService,
         AuthServerProvider,
-        AuthService,
         UserService,
         DatePipe
     ],

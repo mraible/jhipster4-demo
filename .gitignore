@@ -4,7 +4,6 @@
 /src/main/webapp/content/css/main.css
 /target/www/**
 /src/test/javascript/coverage/
-/src/test/javascript/PhantomJS*/
 
 ######################
 # Node
@@ -59,6 +58,7 @@ local.properties
 *.ipr
 *.ids
 *.orig
+classes/
 
 ######################
 # Visual Studio Code
@@ -116,7 +116,7 @@ Desktop.ini
 ######################
 # Logs
 ######################
-*.log
+*.log*
 
 ######################
 # Others

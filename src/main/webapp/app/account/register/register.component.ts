@@ -3,7 +3,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { Register } from './register.service';
-import { LoginModalService } from '../../shared';
+import { LoginModalService, EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '../../shared';
 
 @Component({
     selector: 'jhi-register',
@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer
     ) {
-        this.languageService.setLocations(['register']);
     }
 
     ngOnInit() {
@@ -62,9 +61,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     private processError(response) {
         this.success = null;
-        if (response.status === 400 && response._body === 'login already in use') {
+        if (response.status === 400 && response.json().type === LOGIN_ALREADY_USED_TYPE) {
             this.errorUserExists = 'ERROR';
-        } else if (response.status === 400 && response._body === 'email address already in use') {
+        } else if (response.status === 400 && response.json().type === EMAIL_ALREADY_USED_TYPE) {
             this.errorEmailExists = 'ERROR';
         } else {
             this.error = 'ERROR';

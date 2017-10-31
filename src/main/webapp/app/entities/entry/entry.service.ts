@@ -1,76 +1,79 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { SERVER_API_URL } from '../../app.constants';
+
+import { JhiDateUtils } from 'ng-jhipster';
 
 import { Entry } from './entry.model';
-import { DateUtils } from 'ng-jhipster';
+import { ResponseWrapper, createRequestOption } from '../../shared';
+
 @Injectable()
 export class EntryService {
 
-    private resourceUrl = 'api/entries';
+    private resourceUrl = SERVER_API_URL + 'api/entries';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(entry: Entry): Observable<Entry> {
-        const copy: Entry = Object.assign({}, entry);
-        copy.date = this.dateUtils.toDate(entry.date);
+        const copy = this.convert(entry);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
+            const jsonResponse = res.json();
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     update(entry: Entry): Observable<Entry> {
-        const copy: Entry = Object.assign({}, entry);
-
-        copy.date = this.dateUtils.toDate(entry.date);
+        const copy = this.convert(entry);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
+            const jsonResponse = res.json();
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     find(id: number): Observable<Entry> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            jsonResponse.date = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.date);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
-    query(req?: any): Observable<Response> {
-        const options = this.createRequestOption(req);
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
-        ;
+            .map((res: Response) => this.convertResponse(res));
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-    private convertResponse(res: any): any {
+    private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
+        const result = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            jsonResponse[i].date = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].date);
+            result.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        res._body = jsonResponse;
-        return res;
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
-    private createRequestOption(req?: any): BaseRequestOptions {
-        const options: BaseRequestOptions = new BaseRequestOptions();
-        if (req) {
-            const params: URLSearchParams = new URLSearchParams();
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
-            }
-            params.set('query', req.query);
+    /**
+     * Convert a returned JSON object to Entry.
+     */
+    private convertItemFromServer(json: any): Entry {
+        const entity: Entry = Object.assign(new Entry(), json);
+        entity.date = this.dateUtils
+            .convertDateTimeFromServer(json.date);
+        return entity;
+    }
 
-            options.search = params;
-        }
-        return options;
+    /**
+     * Convert a Entry to a JSON which can be sent to the server.
+     */
+    private convert(entry: Entry): Entry {
+        const copy: Entry = Object.assign({}, entry);
+
+        copy.date = this.dateUtils.toDate(entry.date);
+        return copy;
     }
 }

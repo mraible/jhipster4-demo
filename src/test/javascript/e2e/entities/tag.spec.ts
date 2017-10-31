@@ -1,49 +1,91 @@
 import { browser, element, by, $ } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
+const path = require('path');
 
 describe('Tag e2e test', () => {
 
-    const username = element(by.id('username'));
-    const password = element(by.id('password'));
-    const entityMenu = element(by.id('entity-menu'));
-    const accountMenu = element(by.id('account-menu'));
-    const login = element(by.id('login'));
-    const logout = element(by.id('logout'));
+    let navBarPage: NavBarPage;
+    let tagDialogPage: TagDialogPage;
+    let tagComponentsPage: TagComponentsPage;
+    const fileToUpload = '../../../../main/webapp/content/images/logo-jhipster.png';
+    const absolutePath = path.resolve(__dirname, fileToUpload);
+    
 
     beforeAll(() => {
         browser.get('/');
-
-        accountMenu.click();
-        login.click();
-
-        username.sendKeys('admin');
-        password.sendKeys('admin');
-        element(by.css('button[type=submit]')).click();
+        browser.waitForAngular();
+        navBarPage = new NavBarPage();
+        navBarPage.getSignInPage().autoSignInUsing('admin', 'admin');
         browser.waitForAngular();
     });
 
     it('should load Tags', () => {
-        entityMenu.click();
-        element.all(by.css('[routerLink="tag"]')).first().click().then(() => {
-            const expectVal = /blogApp.tag.home.title/;
-            element.all(by.css('h2 span')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
-        });
+        navBarPage.goToEntity('tag');
+        tagComponentsPage = new TagComponentsPage();
+        expect(tagComponentsPage.getTitle()).toMatch(/blogApp.tag.home.title/);
+
     });
 
-    it('should load create Tag dialog', function () {
-        element(by.css('button.create-tag')).click().then(() => {
-            const expectVal = /blogApp.tag.home.createOrEditLabel/;
-            element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
-
-            element(by.css('button.close')).click();
-        });
+    it('should load create Tag dialog', () => {
+        tagComponentsPage.clickOnCreateButton();
+        tagDialogPage = new TagDialogPage();
+        expect(tagDialogPage.getModalTitle()).toMatch(/blogApp.tag.home.createOrEditLabel/);
+        tagDialogPage.close();
     });
 
-    afterAll(function () {
-        accountMenu.click();
-        logout.click();
+    it('should create and save Tags', () => {
+        tagComponentsPage.clickOnCreateButton();
+        tagDialogPage.setNameInput('name');
+        expect(tagDialogPage.getNameInput()).toMatch('name');
+        tagDialogPage.save();
+        expect(tagDialogPage.getSaveButton().isPresent()).toBeFalsy();
+    }); 
+
+    afterAll(() => {
+        navBarPage.autoSignOut();
     });
 });
+
+export class TagComponentsPage {
+    createButton = element(by.css('.jh-create-entity'));
+    title = element.all(by.css('jhi-tag div h2 span')).first();
+
+    clickOnCreateButton() {
+        return this.createButton.click();
+    }
+
+    getTitle() {
+        return this.title.getAttribute('jhiTranslate');
+    }
+}
+
+export class TagDialogPage {
+    modalTitle = element(by.css('h4#myTagLabel'));
+    saveButton = element(by.css('.modal-footer .btn.btn-primary'));
+    closeButton = element(by.css('button.close'));
+    nameInput = element(by.css('input#field_name'));
+
+    getModalTitle() {
+        return this.modalTitle.getAttribute('jhiTranslate');
+    }
+
+    setNameInput = function (name) {
+        this.nameInput.sendKeys(name);
+    }
+
+    getNameInput = function () {
+        return this.nameInput.getAttribute('value');
+    }
+
+    save() {
+        this.saveButton.click();
+    }
+
+    close() {
+        this.closeButton.click();
+    }
+
+    getSaveButton() {
+        return this.saveButton;
+    }
+}

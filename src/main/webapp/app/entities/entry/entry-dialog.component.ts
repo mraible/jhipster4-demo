@@ -2,14 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService, DataUtils } from 'ng-jhipster';
+import { Observable } from 'rxjs/Rx';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { Entry } from './entry.model';
 import { EntryPopupService } from './entry-popup.service';
 import { EntryService } from './entry.service';
 import { Blog, BlogService } from '../blog';
 import { Tag, TagService } from '../tag';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-entry-dialog',
@@ -18,33 +20,31 @@ import { Tag, TagService } from '../tag';
 export class EntryDialogComponent implements OnInit {
 
     entry: Entry;
-    authorities: any[];
     isSaving: boolean;
 
     blogs: Blog[];
 
     tags: Tag[];
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private dataUtils: DataUtils,
-        private alertService: AlertService,
+        private dataUtils: JhiDataUtils,
+        private jhiAlertService: JhiAlertService,
         private entryService: EntryService,
         private blogService: BlogService,
         private tagService: TagService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
-        this.jhiLanguageService.setLocations(['entry']);
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.blogService.query().subscribe(
-            (res: Response) => { this.blogs = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.tagService.query().subscribe(
-            (res: Response) => { this.tags = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.blogService.query()
+            .subscribe((res: ResponseWrapper) => { this.blogs = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.tagService.query()
+            .subscribe((res: ResponseWrapper) => { this.tags = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
+
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }
@@ -53,18 +53,10 @@ export class EntryDialogComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData(event, entry, field, isImage) {
-        if (event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            if (isImage && !/^image\//.test(file.type)) {
-                return;
-            }
-            this.dataUtils.toBase64(file, (base64Data) => {
-                entry[field] = base64Data;
-                entry[`${field}ContentType`] = file.type;
-            });
-        }
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -72,14 +64,17 @@ export class EntryDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.entry.id !== undefined) {
-            this.entryService.update(this.entry)
-                .subscribe((res: Entry) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.entryService.update(this.entry));
         } else {
-            this.entryService.create(this.entry)
-                .subscribe((res: Entry) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.entryService.create(this.entry));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<Entry>) {
+        result.subscribe((res: Entry) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Entry) {
@@ -88,18 +83,12 @@ export class EntryDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackBlogById(index: number, item: Blog) {
@@ -128,7 +117,6 @@ export class EntryDialogComponent implements OnInit {
 })
 export class EntryPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -139,11 +127,11 @@ export class EntryPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.modalRef = this.entryPopupService
-                    .open(EntryDialogComponent, params['id']);
+                this.entryPopupService
+                    .open(EntryDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.entryPopupService
-                    .open(EntryDialogComponent);
+                this.entryPopupService
+                    .open(EntryDialogComponent as Component);
             }
         });
     }
