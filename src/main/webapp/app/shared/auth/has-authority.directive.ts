@@ -18,27 +18,27 @@ export class HasAuthorityDirective implements OnInit {
         if (this.authority.length > 0) {
             this.setVisibilityAsync();
         }
-        this.principal.getAuthenticationState().subscribe(identity => this.setVisibilitySync());
+        this.principal.getAuthenticationState().subscribe((identity) => this.setVisibilitySync());
     }
 
     private setVisibilitySync() {
-      if (this.principal.hasAnyAuthority([this.authority])) {
-        this.setVisible();
-      } else {
-        this.setHidden();
-      }
+        if (this.principal.hasAnyAuthority([this.authority])) {
+            this.setVisible();
+        } else {
+            this.setHidden();
+        }
     }
 
-    private setVisible () {
+    private setVisible() {
         this.renderer.setElementClass(this.el.nativeElement, 'hidden-xs-up', false);
     }
 
-    private setHidden () {
+    private setHidden() {
         this.renderer.setElementClass(this.el.nativeElement, 'hidden-xs-up', true);
     }
 
-    private setVisibilityAsync () {
-        this.principal.hasAuthority(this.authority).then(result => {
+    private setVisibilityAsync() {
+        this.principal.hasAuthority(this.authority).then((result) => {
             if (result) {
                 this.setVisible();
             } else {

@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.3.0",
+    "jhipsterVersion": "4.13.3",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -18,7 +18,7 @@
     "buildTool": "maven",
     "enableSocialSignIn": false,
     "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
-    "clientFramework": "angular2",
+    "clientFramework": "angularX",
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
@@ -32,6 +32,8 @@
     "languages": [
       "en",
       "es"
-    ]
+    ],
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true
   }
 }
