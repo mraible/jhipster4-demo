@@ -4,9 +4,9 @@ import com.codahale.metrics.annotation.Timed;
 import org.jhipster.domain.Entry;
 
 import org.jhipster.repository.EntryRepository;
+import org.jhipster.web.rest.errors.BadRequestAlertException;
 import org.jhipster.web.rest.util.HeaderUtil;
 import org.jhipster.web.rest.util.PaginationUtil;
-import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class EntryResource {
     private final Logger log = LoggerFactory.getLogger(EntryResource.class);
 
     private static final String ENTITY_NAME = "entry";
-        
+
     private final EntryRepository entryRepository;
 
     public EntryResource(EntryRepository entryRepository) {
@@ -52,7 +53,7 @@ public class EntryResource {
     public ResponseEntity<Entry> createEntry(@Valid @RequestBody Entry entry) throws URISyntaxException {
         log.debug("REST request to save Entry : {}", entry);
         if (entry.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new entry cannot already have an ID")).body(null);
+            throw new BadRequestAlertException("A new entry cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Entry result = entryRepository.save(entry);
         return ResponseEntity.created(new URI("/api/entries/" + result.getId()))
@@ -66,7 +67,7 @@ public class EntryResource {
      * @param entry the entry to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated entry,
      * or with status 400 (Bad Request) if the entry is not valid,
-     * or with status 500 (Internal Server Error) if the entry couldnt be updated
+     * or with status 500 (Internal Server Error) if the entry couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/entries")
@@ -90,7 +91,7 @@ public class EntryResource {
      */
     @GetMapping("/entries")
     @Timed
-    public ResponseEntity<List<Entry>> getAllEntries(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<Entry>> getAllEntries(Pageable pageable) {
         log.debug("REST request to get a page of Entries");
         Page<Entry> page = entryRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/entries");
@@ -124,5 +125,4 @@ public class EntryResource {
         entryRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

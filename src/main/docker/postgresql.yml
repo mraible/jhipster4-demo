@@ -1,9 +1,9 @@
 version: '2'
 services:
     blog-postgresql:
-        image: postgres:9.6.2
+        image: postgres:9.6.5
         # volumes:
-        #     - ~/volumes/jhipster/blog/postgresql/:/var/lib/postgresql/
+        #     - ~/volumes/jhipster/blog/postgresql/:/var/lib/postgresql/data/
         environment:
             - POSTGRES_USER=blog
             - POSTGRES_PASSWORD=

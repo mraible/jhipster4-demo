@@ -1,7 +1,7 @@
 <div>
     <h2>
         <span jhiTranslate="blogApp.entry.home.title">Entries</span>
-        <button class="btn btn-primary float-right create-entry" [routerLink]="['/', { outlets: { popup: ['entry-new'] } }]">
+        <button class="btn btn-primary float-right jh-create-entity create-entry" [routerLink]="['/', { outlets: { popup: ['entry-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="blogApp.entry.home.createLabel">
             Create new Entry
@@ -41,21 +41,23 @@
                                 [routerLink]="['../entry', entry.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'entry/'+ entry.id + '/edit'} }]"
                                 replaceUrl="true"
+                                queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'entry/'+ entry.id + '/delete'} }]"
                                 replaceUrl="true"
+                                queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>

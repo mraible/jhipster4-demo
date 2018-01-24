@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Entry } from './entry.model';
 import { EntryPopupService } from './entry-popup.service';
@@ -17,12 +17,10 @@ export class EntryDeleteDialogComponent {
     entry: Entry;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private entryService: EntryService,
         public activeModal: NgbActiveModal,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
-        this.jhiLanguageService.setLocations(['entry']);
     }
 
     clear() {
@@ -46,7 +44,6 @@ export class EntryDeleteDialogComponent {
 })
 export class EntryDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -56,8 +53,8 @@ export class EntryDeletePopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.entryPopupService
-                .open(EntryDeleteDialogComponent, params['id']);
+            this.entryPopupService
+                .open(EntryDeleteDialogComponent as Component, params['id']);
         });
     }
 

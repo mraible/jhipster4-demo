@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import org.jhipster.domain.Blog;
 
 import org.jhipster.repository.BlogRepository;
+import org.jhipster.web.rest.errors.BadRequestAlertException;
 import org.jhipster.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +29,7 @@ public class BlogResource {
     private final Logger log = LoggerFactory.getLogger(BlogResource.class);
 
     private static final String ENTITY_NAME = "blog";
-        
+
     private final BlogRepository blogRepository;
 
     public BlogResource(BlogRepository blogRepository) {
@@ -46,7 +48,7 @@ public class BlogResource {
     public ResponseEntity<Blog> createBlog(@Valid @RequestBody Blog blog) throws URISyntaxException {
         log.debug("REST request to save Blog : {}", blog);
         if (blog.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new blog cannot already have an ID")).body(null);
+            throw new BadRequestAlertException("A new blog cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Blog result = blogRepository.save(blog);
         return ResponseEntity.created(new URI("/api/blogs/" + result.getId()))
@@ -60,7 +62,7 @@ public class BlogResource {
      * @param blog the blog to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated blog,
      * or with status 400 (Bad Request) if the blog is not valid,
-     * or with status 500 (Internal Server Error) if the blog couldnt be updated
+     * or with status 500 (Internal Server Error) if the blog couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/blogs")
@@ -85,9 +87,8 @@ public class BlogResource {
     @Timed
     public List<Blog> getAllBlogs() {
         log.debug("REST request to get all Blogs");
-        List<Blog> blogs = blogRepository.findAll();
-        return blogs;
-    }
+        return blogRepository.findAll();
+        }
 
     /**
      * GET  /blogs/:id : get the "id" blog.
@@ -116,5 +117,4 @@ public class BlogResource {
         blogRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

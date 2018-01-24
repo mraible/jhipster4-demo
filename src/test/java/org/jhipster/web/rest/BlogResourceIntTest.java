@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static org.jhipster.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -65,10 +66,11 @@ public class BlogResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        BlogResource blogResource = new BlogResource(blogRepository);
+        final BlogResource blogResource = new BlogResource(blogRepository);
         this.restBlogMockMvc = MockMvcBuilders.standaloneSetup(blogResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -123,7 +125,7 @@ public class BlogResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(blog)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Blog in the database
         List<Blog> blogList = blogRepository.findAll();
         assertThat(blogList).hasSize(databaseSizeBeforeCreate);
     }
@@ -211,6 +213,8 @@ public class BlogResourceIntTest {
 
         // Update the blog
         Blog updatedBlog = blogRepository.findOne(blog.getId());
+        // Disconnect from session so that the updates on updatedBlog are not directly saved in db
+        em.detach(updatedBlog);
         updatedBlog
             .name(UPDATED_NAME)
             .handle(UPDATED_HANDLE);
@@ -267,5 +271,14 @@ public class BlogResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Blog.class);
+        Blog blog1 = new Blog();
+        blog1.setId(1L);
+        Blog blog2 = new Blog();
+        blog2.setId(blog1.getId());
+        assertThat(blog1).isEqualTo(blog2);
+        blog2.setId(2L);
+        assertThat(blog1).isNotEqualTo(blog2);
+        blog1.setId(null);
+        assertThat(blog1).isNotEqualTo(blog2);
     }
 }
