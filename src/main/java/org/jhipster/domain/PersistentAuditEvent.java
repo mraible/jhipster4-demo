@@ -1,15 +1,15 @@
 package org.jhipster.domain;
 
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Persist AuditEvent managed by the Spring Boot actuator
+ * Persist AuditEvent managed by the Spring Boot actuator.
+ *
  * @see org.springframework.boot.actuate.audit.AuditEvent
  */
 @Entity
@@ -27,7 +27,8 @@ public class PersistentAuditEvent implements Serializable {
     private String principal;
 
     @Column(name = "event_date")
-    private LocalDateTime auditEventDate;
+    private Instant auditEventDate;
+
     @Column(name = "event_type")
     private String auditEventType;
 
@@ -53,11 +54,11 @@ public class PersistentAuditEvent implements Serializable {
         this.principal = principal;
     }
 
-    public LocalDateTime getAuditEventDate() {
+    public Instant getAuditEventDate() {
         return auditEventDate;
     }
 
-    public void setAuditEventDate(LocalDateTime auditEventDate) {
+    public void setAuditEventDate(Instant auditEventDate) {
         this.auditEventDate = auditEventDate;
     }
 

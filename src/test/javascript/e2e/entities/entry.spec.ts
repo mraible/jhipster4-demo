@@ -1,49 +1,147 @@
-import { browser, element, by, $ } from 'protractor';
+import { browser, element, by } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
 
 describe('Entry e2e test', () => {
 
-    const username = element(by.id('username'));
-    const password = element(by.id('password'));
-    const entityMenu = element(by.id('entity-menu'));
-    const accountMenu = element(by.id('account-menu'));
-    const login = element(by.id('login'));
-    const logout = element(by.id('logout'));
+    let navBarPage: NavBarPage;
+    let entryDialogPage: EntryDialogPage;
+    let entryComponentsPage: EntryComponentsPage;
 
     beforeAll(() => {
         browser.get('/');
-
-        accountMenu.click();
-        login.click();
-
-        username.sendKeys('admin');
-        password.sendKeys('admin');
-        element(by.css('button[type=submit]')).click();
+        browser.waitForAngular();
+        navBarPage = new NavBarPage();
+        navBarPage.getSignInPage().autoSignInUsing('admin', 'admin');
         browser.waitForAngular();
     });
 
     it('should load Entries', () => {
-        entityMenu.click();
-        element.all(by.css('[routerLink="entry"]')).first().click().then(() => {
-            const expectVal = /blogApp.entry.home.title/;
-            element.all(by.css('h2 span')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
-        });
+        navBarPage.goToEntity('entry');
+        entryComponentsPage = new EntryComponentsPage();
+        expect(entryComponentsPage.getTitle())
+            .toMatch(/blogApp.entry.home.title/);
+
     });
 
-    it('should load create Entry dialog', function () {
-        element(by.css('button.create-entry')).click().then(() => {
-            const expectVal = /blogApp.entry.home.createOrEditLabel/;
-            element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
-
-            element(by.css('button.close')).click();
-        });
+    it('should load create Entry dialog', () => {
+        entryComponentsPage.clickOnCreateButton();
+        entryDialogPage = new EntryDialogPage();
+        expect(entryDialogPage.getModalTitle())
+            .toMatch(/blogApp.entry.home.createOrEditLabel/);
+        entryDialogPage.close();
     });
 
-    afterAll(function () {
-        accountMenu.click();
-        logout.click();
+    it('should create and save Entries', () => {
+        entryComponentsPage.clickOnCreateButton();
+        entryDialogPage.setTitleInput('title');
+        expect(entryDialogPage.getTitleInput()).toMatch('title');
+        entryDialogPage.setContentInput('content');
+        expect(entryDialogPage.getContentInput()).toMatch('content');
+        entryDialogPage.setDateInput(12310020012301);
+        expect(entryDialogPage.getDateInput()).toMatch('2001-12-31T02:30');
+        entryDialogPage.blogSelectLastOption();
+        // entryDialogPage.tagSelectLastOption();
+        entryDialogPage.save();
+        expect(entryDialogPage.getSaveButton().isPresent()).toBeFalsy();
+    });
+
+    afterAll(() => {
+        navBarPage.autoSignOut();
     });
 });
+
+export class EntryComponentsPage {
+    createButton = element(by.css('.jh-create-entity'));
+    title = element.all(by.css('jhi-entry div h2 span')).first();
+
+    clickOnCreateButton() {
+        return this.createButton.click();
+    }
+
+    getTitle() {
+        return this.title.getAttribute('jhiTranslate');
+    }
+}
+
+export class EntryDialogPage {
+    modalTitle = element(by.css('h4#myEntryLabel'));
+    saveButton = element(by.css('.modal-footer .btn.btn-primary'));
+    closeButton = element(by.css('button.close'));
+    titleInput = element(by.css('input#field_title'));
+    contentInput = element(by.css('textarea#field_content'));
+    dateInput = element(by.css('input#field_date'));
+    blogSelect = element(by.css('select#field_blog'));
+    tagSelect = element(by.css('select#field_tag'));
+
+    getModalTitle() {
+        return this.modalTitle.getAttribute('jhiTranslate');
+    }
+
+    setTitleInput = function(title) {
+        this.titleInput.sendKeys(title);
+    }
+
+    getTitleInput = function() {
+        return this.titleInput.getAttribute('value');
+    }
+
+    setContentInput = function(content) {
+        this.contentInput.sendKeys(content);
+    }
+
+    getContentInput = function() {
+        return this.contentInput.getAttribute('value');
+    }
+
+    setDateInput = function(date) {
+        this.dateInput.sendKeys(date);
+    }
+
+    getDateInput = function() {
+        return this.dateInput.getAttribute('value');
+    }
+
+    blogSelectLastOption = function() {
+        this.blogSelect.all(by.tagName('option')).last().click();
+    }
+
+    blogSelectOption = function(option) {
+        this.blogSelect.sendKeys(option);
+    }
+
+    getBlogSelect = function() {
+        return this.blogSelect;
+    }
+
+    getBlogSelectedOption = function() {
+        return this.blogSelect.element(by.css('option:checked')).getText();
+    }
+
+    tagSelectLastOption = function() {
+        this.tagSelect.all(by.tagName('option')).last().click();
+    }
+
+    tagSelectOption = function(option) {
+        this.tagSelect.sendKeys(option);
+    }
+
+    getTagSelect = function() {
+        return this.tagSelect;
+    }
+
+    getTagSelectedOption = function() {
+        return this.tagSelect.element(by.css('option:checked')).getText();
+    }
+
+    save() {
+        this.saveButton.click();
+    }
+
+    close() {
+        this.closeButton.click();
+    }
+
+    getSaveButton() {
+        return this.saveButton;
+    }
+}

@@ -1,4 +1,4 @@
-const HtmlScreenshotReporter = require("protractor-jasmine2-screenshot-reporter");
+const HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
 const JasmineReporters = require('jasmine-reporters');
 
 exports.config = {
@@ -7,7 +7,8 @@ exports.config = {
     specs: [
         './e2e/account/*.spec.ts',
         './e2e/admin/*.spec.ts',
-        './e2e/entities/*.spec.ts'
+        './e2e/entities/*.spec.ts',
+        /* jhipster-needle-add-protractor-tests - JHipster will add protractors tests here */
     ],
 
     capabilities: {
@@ -24,7 +25,7 @@ exports.config = {
 
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 30000
+        defaultTimeoutInterval: 720000
     },
 
     beforeLaunch: function() {

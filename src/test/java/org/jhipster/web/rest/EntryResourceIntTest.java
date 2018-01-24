@@ -1,9 +1,11 @@
 package org.jhipster.web.rest;
 
 import org.jhipster.BlogApp;
+
 import org.jhipster.domain.Entry;
 import org.jhipster.repository.EntryRepository;
 import org.jhipster.web.rest.errors.ExceptionTranslator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,17 +19,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static org.jhipster.web.rest.TestUtil.sameInstant;
+import static org.jhipster.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.jhipster.web.rest.TestUtil.sameInstant;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -71,10 +75,11 @@ public class EntryResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        EntryResource entryResource = new EntryResource(entryRepository);
+        final EntryResource entryResource = new EntryResource(entryRepository);
         this.restEntryMockMvc = MockMvcBuilders.standaloneSetup(entryResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -131,7 +136,7 @@ public class EntryResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(entry)))
             .andExpect(status().isBadRequest());
 
-        // Validate the Alice in the database
+        // Validate the Entry in the database
         List<Entry> entryList = entryRepository.findAll();
         assertThat(entryList).hasSize(databaseSizeBeforeCreate);
     }
@@ -239,6 +244,8 @@ public class EntryResourceIntTest {
 
         // Update the entry
         Entry updatedEntry = entryRepository.findOne(entry.getId());
+        // Disconnect from session so that the updates on updatedEntry are not directly saved in db
+        em.detach(updatedEntry);
         updatedEntry
             .title(UPDATED_TITLE)
             .content(UPDATED_CONTENT)
@@ -297,5 +304,14 @@ public class EntryResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Entry.class);
+        Entry entry1 = new Entry();
+        entry1.setId(1L);
+        Entry entry2 = new Entry();
+        entry2.setId(entry1.getId());
+        assertThat(entry1).isEqualTo(entry2);
+        entry2.setId(2L);
+        assertThat(entry1).isNotEqualTo(entry2);
+        entry1.setId(null);
+        assertThat(entry1).isNotEqualTo(entry2);
     }
 }

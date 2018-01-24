@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Response } from '@angular/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Blog } from './blog.model';
 import { BlogService } from './blog.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { Principal, ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-blog',
@@ -19,21 +16,19 @@ blogs: Blog[];
     eventSubscriber: Subscription;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private blogService: BlogService,
-        private alertService: AlertService,
-        private eventManager: EventManager,
+        private jhiAlertService: JhiAlertService,
+        private eventManager: JhiEventManager,
         private principal: Principal
     ) {
-        this.jhiLanguageService.setLocations(['blog']);
     }
 
     loadAll() {
         this.blogService.query().subscribe(
-            (res: Response) => {
-                this.blogs = res.json();
+            (res: ResponseWrapper) => {
+                this.blogs = res.json;
             },
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
     ngOnInit() {
@@ -56,6 +51,6 @@ blogs: Blog[];
     }
 
     private onError(error) {
-        this.alertService.error(error.message, null, null);
+        this.jhiAlertService.error(error.message, null, null);
     }
 }

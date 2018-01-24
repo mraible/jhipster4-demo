@@ -5,10 +5,10 @@ import { BlogSharedModule } from '../shared';
 
 import {
     Register,
-    Activate,
-    Password,
-    PasswordResetInit,
-    PasswordResetFinish,
+    ActivateService,
+    PasswordService,
+    PasswordResetInitService,
+    PasswordResetFinishService,
     PasswordStrengthBarComponent,
     RegisterComponent,
     ActivateComponent,
@@ -22,7 +22,7 @@ import {
 @NgModule({
     imports: [
         BlogSharedModule,
-        RouterModule.forRoot(accountState, { useHash: true })
+        RouterModule.forChild(accountState)
     ],
     declarations: [
         ActivateComponent,
@@ -35,10 +35,10 @@ import {
     ],
     providers: [
         Register,
-        Activate,
-        Password,
-        PasswordResetInit,
-        PasswordResetFinish
+        ActivateService,
+        PasswordService,
+        PasswordResetInitService,
+        PasswordResetFinishService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -4,9 +4,9 @@ import com.codahale.metrics.annotation.Timed;
 import org.jhipster.domain.Tag;
 
 import org.jhipster.repository.TagRepository;
+import org.jhipster.web.rest.errors.BadRequestAlertException;
 import org.jhipster.web.rest.util.HeaderUtil;
 import org.jhipster.web.rest.util.PaginationUtil;
-import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class TagResource {
     private final Logger log = LoggerFactory.getLogger(TagResource.class);
 
     private static final String ENTITY_NAME = "tag";
-        
+
     private final TagRepository tagRepository;
 
     public TagResource(TagRepository tagRepository) {
@@ -52,7 +53,7 @@ public class TagResource {
     public ResponseEntity<Tag> createTag(@Valid @RequestBody Tag tag) throws URISyntaxException {
         log.debug("REST request to save Tag : {}", tag);
         if (tag.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new tag cannot already have an ID")).body(null);
+            throw new BadRequestAlertException("A new tag cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Tag result = tagRepository.save(tag);
         return ResponseEntity.created(new URI("/api/tags/" + result.getId()))
@@ -66,7 +67,7 @@ public class TagResource {
      * @param tag the tag to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated tag,
      * or with status 400 (Bad Request) if the tag is not valid,
-     * or with status 500 (Internal Server Error) if the tag couldnt be updated
+     * or with status 500 (Internal Server Error) if the tag couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/tags")
@@ -90,7 +91,7 @@ public class TagResource {
      */
     @GetMapping("/tags")
     @Timed
-    public ResponseEntity<List<Tag>> getAllTags(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<Tag>> getAllTags(Pageable pageable) {
         log.debug("REST request to get a page of Tags");
         Page<Tag> page = tagRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tags");
@@ -124,5 +125,4 @@ public class TagResource {
         tagRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

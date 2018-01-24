@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { JhiMetricsMonitoringModalComponent } from './metrics-modal.component';
 import { JhiMetricsService } from './metrics.service';
 
 @Component({
     selector: 'jhi-metrics',
-    templateUrl: './metrics.component.html',
+    templateUrl: './metrics.component.html'
 })
 export class JhiMetricsMonitoringComponent implements OnInit {
     metrics: any = {};
     cachesStats: any = {};
     servicesStats: any = {};
     updatingMetrics = true;
-    JCACHE_KEY: string ;
+    JCACHE_KEY: string;
 
     constructor(
-        private jhiLanguageService: JhiLanguageService,
         private modalService: NgbModal,
         private metricsService: JhiMetricsService
     ) {
         this.JCACHE_KEY = 'jcache.statistics';
-        this.jhiLanguageService.setLocations(['metrics']);
     }
 
     ngOnInit() {
@@ -38,12 +35,12 @@ export class JhiMetricsMonitoringComponent implements OnInit {
             this.cachesStats = {};
             Object.keys(metrics.timers).forEach((key) => {
                 const value = metrics.timers[key];
-                if (key.indexOf('web.rest') !== -1 || key.indexOf('service') !== -1) {
+                if (key.includes('web.rest') || key.includes('service')) {
                     this.servicesStats[key] = value;
                 }
             });
             Object.keys(metrics.gauges).forEach((key) => {
-                if (key.indexOf('jcache.statistics') !== -1) {
+                if (key.includes('jcache.statistics')) {
                     const value = metrics.gauges[key].value;
                     // remove gets or puts
                     const index = key.lastIndexOf('.');
@@ -69,6 +66,13 @@ export class JhiMetricsMonitoringComponent implements OnInit {
                 // Left blank intentionally, nothing to do here
             });
         });
+    }
+
+    filterNaN(input) {
+        if (isNaN(input)) {
+            return 0;
+        }
+        return input;
     }
 
 }

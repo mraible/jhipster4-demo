@@ -1,10 +1,10 @@
 {
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "project": {
-        "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
         "name": "blog"
     },
     "apps": [{
-        "root": "src/main/webapp/",
+        "root": "src/main/webapp",
         "outDir": "target/www/app",
         "assets": [
             "content",
@@ -14,7 +14,7 @@
         "index": "index.html",
         "main": "app/app.main.ts",
         "polyfills": "app/polyfills.ts",
-        "test": "",
+        "test": "src/test/javascript/spec/entry.ts",
         "tsconfig": "../../../tsconfig.json",
         "prefix": "jhi",
         "mobile": false,
@@ -24,8 +24,6 @@
         ],
         "scripts": []
     }],
-    "addons": [],
-    "packages": [],
     "e2e": {
         "protractor": {
             "config": "src/test/javascript/protractor.conf.js"
@@ -46,15 +44,22 @@
     "defaults": {
         "styleExt": "scss",
         "prefixInterfaces": false,
-        "inline": {
-            "style": true,
-            "template": false
+        "component" : {
+            "inlineStyle" : true,
+            "inlineTemplate": false,
+            "spec": false
         },
-        "spec": {
-            "component": false,
-            "directive": false,
-            "pipe": false,
-            "service": false
+        "directive" : {
+            "spec": false
+        },
+        "guard" : {
+            "spec": false
+        },
+        "pipe" : {
+            "spec": false
+        },
+        "service" : {
+            "spec": false
         }
     },
     "packageManager": "yarn"
