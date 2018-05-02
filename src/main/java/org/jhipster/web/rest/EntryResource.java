@@ -4,8 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import org.jhipster.domain.Entry;
 
 import org.jhipster.repository.EntryRepository;
-import org.jhipster.web.rest.errors.BadRequestAlertException;
 import org.jhipster.security.SecurityUtils;
+import org.jhipster.web.rest.errors.BadRequestAlertException;
 import org.jhipster.web.rest.util.HeaderUtil;
 import org.jhipster.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;

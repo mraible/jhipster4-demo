@@ -1,10 +1,12 @@
 package org.jhipster.web.rest;
 
 import org.jhipster.BlogApp;
+
 import org.jhipster.domain.Blog;
 import org.jhipster.repository.BlogRepository;
 import org.jhipster.repository.UserRepository;
 import org.jhipster.web.rest.errors.ExceptionTranslator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
