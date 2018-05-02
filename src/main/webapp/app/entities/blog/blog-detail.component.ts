@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -31,9 +32,10 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.blogService.find(id).subscribe((blog) => {
-            this.blog = blog;
-        });
+        this.blogService.find(id)
+            .subscribe((blogResponse: HttpResponse<Blog>) => {
+                this.blog = blogResponse.body;
+            });
     }
     previousState() {
         window.history.back();
