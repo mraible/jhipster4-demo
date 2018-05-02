@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
@@ -32,9 +33,10 @@ export class EntryDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.entryService.find(id).subscribe((entry) => {
-            this.entry = entry;
-        });
+        this.entryService.find(id)
+            .subscribe((entryResponse: HttpResponse<Entry>) => {
+                this.entry = entryResponse.body;
+            });
     }
     byteSize(field) {
         return this.dataUtils.byteSize(field);

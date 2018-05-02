@@ -79,59 +79,59 @@ export class EntryDialogPage {
 
     setTitleInput = function(title) {
         this.titleInput.sendKeys(title);
-    }
+    };
 
     getTitleInput = function() {
         return this.titleInput.getAttribute('value');
-    }
+    };
 
     setContentInput = function(content) {
         this.contentInput.sendKeys(content);
-    }
+    };
 
     getContentInput = function() {
         return this.contentInput.getAttribute('value');
-    }
+    };
 
     setDateInput = function(date) {
         this.dateInput.sendKeys(date);
-    }
+    };
 
     getDateInput = function() {
         return this.dateInput.getAttribute('value');
-    }
+    };
 
     blogSelectLastOption = function() {
         this.blogSelect.all(by.tagName('option')).last().click();
-    }
+    };
 
     blogSelectOption = function(option) {
         this.blogSelect.sendKeys(option);
-    }
+    };
 
     getBlogSelect = function() {
         return this.blogSelect;
-    }
+    };
 
     getBlogSelectedOption = function() {
         return this.blogSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     tagSelectLastOption = function() {
         this.tagSelect.all(by.tagName('option')).last().click();
-    }
+    };
 
     tagSelectOption = function(option) {
         this.tagSelect.sendKeys(option);
-    }
+    };
 
     getTagSelect = function() {
         return this.tagSelect;
-    }
+    };
 
     getTagSelectedOption = function() {
         return this.tagSelect.element(by.css('option:checked')).getText();
-    }
+    };
 
     save() {
         this.saveButton.click();

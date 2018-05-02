@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,6 @@ import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
 import { TagService } from './tag.service';
 import { Entry, EntryService } from '../entry';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-tag-dialog',
@@ -35,7 +34,7 @@ export class TagDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.entryService.query()
-            .subscribe((res: ResponseWrapper) => { this.entries = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Entry[]>) => { this.entries = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -53,9 +52,9 @@ export class TagDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Tag>) {
-        result.subscribe((res: Tag) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Tag>>) {
+        result.subscribe((res: HttpResponse<Tag>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Tag) {
