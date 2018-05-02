@@ -20,9 +20,10 @@
             "fieldValidateRulesMinlength": 2
         }
     ],
-    "changelogDate": "20170202161959",
+    "changelogDate": "20180502214822",
     "entityTableName": "tag",
     "dto": "no",
     "pagination": "infinite-scroll",
-    "service": "no"
+    "service": "no",
+    "jpaMetamodelFiltering": false
 }

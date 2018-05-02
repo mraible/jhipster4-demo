@@ -40,9 +40,10 @@
             ]
         }
     ],
-    "changelogDate": "20170202161958",
+    "changelogDate": "20180502214821",
     "entityTableName": "entry",
     "dto": "no",
     "pagination": "infinite-scroll",
-    "service": "no"
+    "service": "no",
+    "jpaMetamodelFiltering": false
 }
