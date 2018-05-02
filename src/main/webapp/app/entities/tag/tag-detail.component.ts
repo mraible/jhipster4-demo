@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -31,9 +32,10 @@ export class TagDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.tagService.find(id).subscribe((tag) => {
-            this.tag = tag;
-        });
+        this.tagService.find(id)
+            .subscribe((tagResponse: HttpResponse<Tag>) => {
+                this.tag = tagResponse.body;
+            });
     }
     previousState() {
         window.history.back();

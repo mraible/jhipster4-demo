@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,6 @@ import { EntryPopupService } from './entry-popup.service';
 import { EntryService } from './entry.service';
 import { Blog, BlogService } from '../blog';
 import { Tag, TagService } from '../tag';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-entry-dialog',
@@ -40,9 +39,9 @@ export class EntryDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.blogService.query()
-            .subscribe((res: ResponseWrapper) => { this.blogs = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Blog[]>) => { this.blogs = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.tagService.query()
-            .subscribe((res: ResponseWrapper) => { this.tags = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Tag[]>) => { this.tags = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -72,9 +71,9 @@ export class EntryDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Entry>) {
-        result.subscribe((res: Entry) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Entry>>) {
+        result.subscribe((res: HttpResponse<Entry>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Entry) {
