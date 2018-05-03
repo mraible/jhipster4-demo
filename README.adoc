@@ -30,7 +30,7 @@ endif::[]
 
 This article shows you how to build a simple blog application with https://www.jhipster.tech/2018/04/10/jhipster-release-4.14.3.html[JHipster 4.14.3]. You can also https://www.youtube.com/watch?v=XRREt1KB4Y8[watch a video of this tutorial on YouTube].
 
-NOTE: The screencast below was built with JHipster 4.3.0, while this tutorial has been https://github.com/mraible/jhipster4-demo/pull/14[updated for 4.14.3].
+NOTE: The YouTube video was built with JHipster 4.3.0, while this tutorial has been https://github.com/mraible/jhipster4-demo/pull/14[updated for 4.14.3].
 
 ifdef::env-github[]
 TIP: It appears you're reading this document on GitHub. If you want a prettier view, install https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia[Asciidoctor.js Live Preview for Chrome], then view the https://raw.githubusercontent.com/mraible/jhipster4-demo/master/README.adoc[raw document]. Another option is to use the http://gist.asciidoctor.org/?github-mraible/jhipster4-demo//README.adoc[DocGist view].
