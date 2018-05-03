@@ -1,35 +1,23 @@
-import { HttpInterceptor } from 'ng-jhipster';
-import { RequestOptionsArgs, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { Injector } from '@angular/core';
-import { AuthService } from '../../shared/auth/auth.service';
-import { Principal } from '../../shared/auth/principal.service';
-import { AuthServerProvider } from '../../shared/auth/auth-jwt.service';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import { LoginService } from '../../shared/login/login.service';
 
-export class AuthExpiredInterceptor extends HttpInterceptor {
+export class AuthExpiredInterceptor implements HttpInterceptor {
 
-    constructor(private injector: Injector) {
-        super();
-    }
+    constructor(
+        private injector: Injector
+    ) {}
 
-    requestIntercept(options?: RequestOptionsArgs): RequestOptionsArgs {
-        return options;
-    }
-
-    responseIntercept(observable: Observable<Response>): Observable<Response> {
-        return <Observable<Response>> observable.catch((error, source) => {
-            if (error.status === 401) {
-                const principal: Principal = this.injector.get(Principal);
-
-                if (principal.isAuthenticated()) {
-                    const auth: AuthService = this.injector.get(AuthService);
-                    auth.authorize(true);
-                } else {
-                    const authServerProvider: AuthServerProvider = this.injector.get(AuthServerProvider);
-                    authServerProvider.logout();
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(request).do((event: HttpEvent<any>) => {}, (err: any) => {
+            if (err instanceof HttpErrorResponse) {
+                if (err.status === 401) {
+                    const loginService: LoginService = this.injector.get(LoginService);
+                    loginService.logout();
                 }
             }
-            return Observable.throw(error);
         });
     }
 }

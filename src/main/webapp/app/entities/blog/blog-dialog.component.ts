@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Blog } from './blog.model';
 import { BlogPopupService } from './blog-popup.service';
@@ -17,27 +18,25 @@ import { User, UserService } from '../../shared';
 export class BlogDialogComponent implements OnInit {
 
     blog: Blog;
-    authorities: any[];
     isSaving: boolean;
 
     users: User[];
+
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
+        private jhiAlertService: JhiAlertService,
         private blogService: BlogService,
         private userService: UserService,
-        private eventManager: EventManager
+        private eventManager: JhiEventManager
     ) {
-        this.jhiLanguageService.setLocations(['blog']);
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.userService.query().subscribe(
-            (res: Response) => { this.users = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.userService.query()
+            .subscribe((res: HttpResponse<User[]>) => { this.users = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -45,14 +44,17 @@ export class BlogDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.blog.id !== undefined) {
-            this.blogService.update(this.blog)
-                .subscribe((res: Blog) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.blogService.update(this.blog));
         } else {
-            this.blogService.create(this.blog)
-                .subscribe((res: Blog) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.blogService.create(this.blog));
         }
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Blog>>) {
+        result.subscribe((res: HttpResponse<Blog>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Blog) {
@@ -61,18 +63,12 @@ export class BlogDialogComponent implements OnInit {
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackUserById(index: number, item: User) {
@@ -86,7 +82,6 @@ export class BlogDialogComponent implements OnInit {
 })
 export class BlogPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -97,11 +92,11 @@ export class BlogPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.modalRef = this.blogPopupService
-                    .open(BlogDialogComponent, params['id']);
+                this.blogPopupService
+                    .open(BlogDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.blogPopupService
-                    .open(BlogDialogComponent);
+                this.blogPopupService
+                    .open(BlogDialogComponent as Component);
             }
         });
     }

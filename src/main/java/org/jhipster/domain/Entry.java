@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ public class Entry implements Serializable {
     private String content;
 
     @NotNull
-    @Column(name = "date", nullable = false)
+    @Column(name = "jhi_date", nullable = false)
     private ZonedDateTime date;
 
     @ManyToOne
@@ -49,6 +50,7 @@ public class Entry implements Serializable {
                inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="id"))
     private Set<Tag> tags = new HashSet<>();
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -133,6 +135,7 @@ public class Entry implements Serializable {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -143,24 +146,24 @@ public class Entry implements Serializable {
             return false;
         }
         Entry entry = (Entry) o;
-        if (entry.id == null || id == null) {
+        if (entry.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, entry.id);
+        return Objects.equals(getId(), entry.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Entry{" +
-            "id=" + id +
-            ", title='" + title + "'" +
-            ", content='" + content + "'" +
-            ", date='" + date + "'" +
-            '}';
+            "id=" + getId() +
+            ", title='" + getTitle() + "'" +
+            ", content='" + getContent() + "'" +
+            ", date='" + getDate() + "'" +
+            "}";
     }
 }

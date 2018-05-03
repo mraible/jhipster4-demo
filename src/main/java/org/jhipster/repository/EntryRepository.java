@@ -1,20 +1,21 @@
 package org.jhipster.repository;
 
 import org.jhipster.domain.Entry;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
-
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Spring Data JPA repository for the Entry entity.
  */
 @SuppressWarnings("unused")
-public interface EntryRepository extends JpaRepository<Entry,Long> {
-
+@Repository
+public interface EntryRepository extends JpaRepository<Entry, Long> {
     @Query("select distinct entry from Entry entry left join fetch entry.tags")
     List<Entry> findAllWithEagerRelationships();
 

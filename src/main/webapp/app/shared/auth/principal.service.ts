@@ -20,17 +20,21 @@ export class Principal {
     }
 
     hasAnyAuthority(authorities: string[]): Promise<boolean> {
+        return Promise.resolve(this.hasAnyAuthorityDirect(authorities));
+    }
+
+    hasAnyAuthorityDirect(authorities: string[]): boolean {
         if (!this.authenticated || !this.userIdentity || !this.userIdentity.authorities) {
-            return Promise.resolve(false);
+            return false;
         }
 
         for (let i = 0; i < authorities.length; i++) {
-            if (this.userIdentity.authorities.indexOf(authorities[i]) !== -1) {
-                return Promise.resolve(true);
+            if (this.userIdentity.authorities.includes(authorities[i])) {
+                return true;
             }
         }
 
-        return Promise.resolve(false);
+        return false;
     }
 
     hasAuthority(authority: string): Promise<boolean> {
@@ -39,7 +43,7 @@ export class Principal {
         }
 
         return this.identity().then((id) => {
-            return Promise.resolve(id.authorities && id.authorities.indexOf(authority) !== -1);
+            return Promise.resolve(id.authorities && id.authorities.includes(authority));
         }, () => {
             return Promise.resolve(false);
         });
@@ -57,7 +61,8 @@ export class Principal {
         }
 
         // retrieve the userIdentity data from the server, update the identity object, and then resolve.
-        return this.account.get().toPromise().then((account) => {
+        return this.account.get().toPromise().then((response) => {
+            const account = response.body;
             if (account) {
                 this.userIdentity = account;
                 this.authenticated = true;

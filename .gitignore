@@ -13,6 +13,7 @@
 node_tmp/
 node_modules/
 npm-debug.log.*
+/.awcache/*
 
 ######################
 # SASS
@@ -59,6 +60,7 @@ local.properties
 *.ipr
 *.ids
 *.orig
+classes/
 
 ######################
 # Visual Studio Code
@@ -116,7 +118,7 @@ Desktop.ini
 ######################
 # Logs
 ######################
-*.log
+*.log*
 
 ######################
 # Others

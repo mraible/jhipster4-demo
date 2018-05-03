@@ -1,45 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
+import { SERVER_API_URL } from '../../app.constants';
 import { User } from './user.model';
+import { createRequestOption } from '../model/request-util';
 
 @Injectable()
 export class UserService {
-    private resourceUrl = 'api/users';
+    private resourceUrl = SERVER_API_URL + 'api/users';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    create(user: User): Observable<Response> {
-        return this.http.post(this.resourceUrl, user);
+    create(user: User): Observable<HttpResponse<User>> {
+        return this.http.post<User>(this.resourceUrl, user, { observe: 'response' });
     }
 
-    update(user: User): Observable<Response> {
-        return this.http.put(this.resourceUrl, user);
+    update(user: User): Observable<HttpResponse<User>> {
+        return this.http.put<User>(this.resourceUrl, user, { observe: 'response' });
     }
 
-    find(login: string): Observable<User> {
-        return this.http.get(`${this.resourceUrl}/${login}`).map((res: Response) => res.json());
+    find(login: string): Observable<HttpResponse<User>> {
+        return this.http.get<User>(`${this.resourceUrl}/${login}`, { observe: 'response' });
     }
 
-    query(req?: any): Observable<Response> {
-        const params: URLSearchParams = new URLSearchParams();
-        if (req) {
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
-            }
-        }
-
-        const options = {
-            search: params
-        };
-
-        return this.http.get(this.resourceUrl, options);
+    query(req?: any): Observable<HttpResponse<User[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<User[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
-    delete(login: string): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${login}`);
+    delete(login: string): Observable<HttpResponse<any>> {
+        return this.http.delete(`${this.resourceUrl}/${login}`, { observe: 'response' });
     }
+
+    authorities(): Observable<string[]> {
+        return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
+    }
+
 }

@@ -1,11 +1,9 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
-import { OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import { DateUtils, DataUtils, EventManager } from 'ng-jhipster';
+/* tslint:disable max-line-length */
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+
 import { BlogTestModule } from '../../../test.module';
-import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { BlogDetailComponent } from '../../../../../../main/webapp/app/entities/blog/blog-detail.component';
 import { BlogService } from '../../../../../../main/webapp/app/entities/blog/blog.service';
 import { Blog } from '../../../../../../main/webapp/app/entities/blog/blog.model';
@@ -22,21 +20,11 @@ describe('Component Tests', () => {
                 imports: [BlogTestModule],
                 declarations: [BlogDetailComponent],
                 providers: [
-                    DateUtils,
-                    DataUtils,
-                    DatePipe,
-                    {
-                        provide: ActivatedRoute,
-                        useValue: new MockActivatedRoute({id: 123})
-                    },
-                    BlogService,
-                    EventManager
+                    BlogService
                 ]
-            }).overrideComponent(BlogDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            })
+            .overrideTemplate(BlogDetailComponent, '')
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -45,18 +33,20 @@ describe('Component Tests', () => {
             service = fixture.debugElement.injector.get(BlogService);
         });
 
-
         describe('OnInit', () => {
             it('Should call load all on init', () => {
-            // GIVEN
-            spyOn(service, 'find').and.returnValue(Observable.of(new Blog(10)));
+                // GIVEN
 
-            // WHEN
-            comp.ngOnInit();
+                spyOn(service, 'find').and.returnValue(Observable.of(new HttpResponse({
+                    body: new Blog(123)
+                })));
 
-            // THEN
-            expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.blog).toEqual(jasmine.objectContaining({id:10}));
+                // WHEN
+                comp.ngOnInit();
+
+                // THEN
+                expect(service.find).toHaveBeenCalledWith(123);
+                expect(comp.blog).toEqual(jasmine.objectContaining({id: 123}));
             });
         });
     });

@@ -1,13 +1,17 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.3.0",
+    "promptValues": {
+      "packageName": "org.jhipster",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "4.14.3",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
     "serverPort": "8080",
     "authenticationType": "jwt",
-    "hibernateCache": "ehcache",
-    "clusteredHttpSession": false,
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
     "websocket": false,
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
@@ -17,8 +21,9 @@
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
-    "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
-    "clientFramework": "angular2",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "66a6793747830fceb83801a2f66b634206014a82",
+    "clientFramework": "angularX",
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
@@ -32,6 +37,7 @@
     "languages": [
       "en",
       "es"
-    ]
+    ],
+    "herokuDeployType": "git"
   }
 }

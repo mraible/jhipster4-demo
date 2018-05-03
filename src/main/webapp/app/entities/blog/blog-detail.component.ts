@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { EventManager , JhiLanguageService  } from 'ng-jhipster';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Blog } from './blog.model';
 import { BlogService } from './blog.service';
@@ -13,16 +14,14 @@ import { BlogService } from './blog.service';
 export class BlogDetailComponent implements OnInit, OnDestroy {
 
     blog: Blog;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
-        private eventManager: EventManager,
-        private jhiLanguageService: JhiLanguageService,
+        private eventManager: JhiEventManager,
         private blogService: BlogService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['blog']);
     }
 
     ngOnInit() {
@@ -33,9 +32,10 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.blogService.find(id).subscribe((blog) => {
-            this.blog = blog;
-        });
+        this.blogService.find(id)
+            .subscribe((blogResponse: HttpResponse<Blog>) => {
+                this.blog = blogResponse.body;
+            });
     }
     previousState() {
         window.history.back();
@@ -47,6 +47,9 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInBlogs() {
-        this.eventSubscriber = this.eventManager.subscribe('blogListModification', (response) => this.load(this.blog.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'blogListModification',
+            (response) => this.load(this.blog.id)
+        );
     }
 }

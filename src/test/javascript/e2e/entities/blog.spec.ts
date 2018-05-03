@@ -1,49 +1,118 @@
-import { browser, element, by, $ } from 'protractor';
+import { browser, element, by } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
 
 describe('Blog e2e test', () => {
 
-    const username = element(by.id('username'));
-    const password = element(by.id('password'));
-    const entityMenu = element(by.id('entity-menu'));
-    const accountMenu = element(by.id('account-menu'));
-    const login = element(by.id('login'));
-    const logout = element(by.id('logout'));
+    let navBarPage: NavBarPage;
+    let blogDialogPage: BlogDialogPage;
+    let blogComponentsPage: BlogComponentsPage;
 
     beforeAll(() => {
         browser.get('/');
-
-        accountMenu.click();
-        login.click();
-
-        username.sendKeys('admin');
-        password.sendKeys('admin');
-        element(by.css('button[type=submit]')).click();
+        browser.waitForAngular();
+        navBarPage = new NavBarPage();
+        navBarPage.getSignInPage().autoSignInUsing('admin', 'admin');
         browser.waitForAngular();
     });
 
     it('should load Blogs', () => {
-        entityMenu.click();
-        element.all(by.css('[routerLink="blog"]')).first().click().then(() => {
-            const expectVal = /blogApp.blog.home.title/;
-            element.all(by.css('h2 span')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
-        });
+        navBarPage.goToEntity('blog');
+        blogComponentsPage = new BlogComponentsPage();
+        expect(blogComponentsPage.getTitle())
+            .toMatch(/blogApp.blog.home.title/);
+
     });
 
-    it('should load create Blog dialog', function () {
-        element(by.css('button.create-blog')).click().then(() => {
-            const expectVal = /blogApp.blog.home.createOrEditLabel/;
-            element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
-                expect(value).toMatch(expectVal);
-            });
-
-            element(by.css('button.close')).click();
-        });
+    it('should load create Blog dialog', () => {
+        blogComponentsPage.clickOnCreateButton();
+        blogDialogPage = new BlogDialogPage();
+        expect(blogDialogPage.getModalTitle())
+            .toMatch(/blogApp.blog.home.createOrEditLabel/);
+        blogDialogPage.close();
     });
 
-    afterAll(function () {
-        accountMenu.click();
-        logout.click();
+    it('should create and save Blogs', () => {
+        blogComponentsPage.clickOnCreateButton();
+        blogDialogPage.setNameInput('name');
+        expect(blogDialogPage.getNameInput()).toMatch('name');
+        blogDialogPage.setHandleInput('handle');
+        expect(blogDialogPage.getHandleInput()).toMatch('handle');
+        blogDialogPage.userSelectLastOption();
+        blogDialogPage.save();
+        expect(blogDialogPage.getSaveButton().isPresent()).toBeFalsy();
+    });
+
+    afterAll(() => {
+        navBarPage.autoSignOut();
     });
 });
+
+export class BlogComponentsPage {
+    createButton = element(by.css('.jh-create-entity'));
+    title = element.all(by.css('jhi-blog div h2 span')).first();
+
+    clickOnCreateButton() {
+        return this.createButton.click();
+    }
+
+    getTitle() {
+        return this.title.getAttribute('jhiTranslate');
+    }
+}
+
+export class BlogDialogPage {
+    modalTitle = element(by.css('h4#myBlogLabel'));
+    saveButton = element(by.css('.modal-footer .btn.btn-primary'));
+    closeButton = element(by.css('button.close'));
+    nameInput = element(by.css('input#field_name'));
+    handleInput = element(by.css('input#field_handle'));
+    userSelect = element(by.css('select#field_user'));
+
+    getModalTitle() {
+        return this.modalTitle.getAttribute('jhiTranslate');
+    }
+
+    setNameInput = function(name) {
+        this.nameInput.sendKeys(name);
+    };
+
+    getNameInput = function() {
+        return this.nameInput.getAttribute('value');
+    };
+
+    setHandleInput = function(handle) {
+        this.handleInput.sendKeys(handle);
+    };
+
+    getHandleInput = function() {
+        return this.handleInput.getAttribute('value');
+    };
+
+    userSelectLastOption = function() {
+        this.userSelect.all(by.tagName('option')).last().click();
+    };
+
+    userSelectOption = function(option) {
+        this.userSelect.sendKeys(option);
+    };
+
+    getUserSelect = function() {
+        return this.userSelect;
+    };
+
+    getUserSelectedOption = function() {
+        return this.userSelect.element(by.css('option:checked')).getText();
+    };
+
+    save() {
+        this.saveButton.click();
+    }
+
+    close() {
+        this.closeButton.click();
+    }
+
+    getSaveButton() {
+        return this.saveButton;
+    }
+}
