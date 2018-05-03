@@ -576,6 +576,8 @@ Now that you've learned how to use Angular, Bootstrap 4, and Spring Boot with JH
 
 The source code for this project is available on GitHub at https://github.com/mraible/jhipster4-demo.
 
+https://travis-ci.org[Travis CI] is continually testing this project with configuration from its https://github.com/mraible/jhipster4-demo/blob/master/.travis.yml[`.travis.yml`] file.
+
 == About the author
 
 Matt Raible is a web developer and Java Champion. He loves to architect and build slick-looking UIs using Sass and TypeScript. When he's not evangelizing https://okta.com[Okta] and open source, he likes to ski with his family, drive his VWs, and enjoy craft beer.
