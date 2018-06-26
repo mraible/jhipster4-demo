@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -104,6 +105,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void createEntry() throws Exception {
         int databaseSizeBeforeCreate = entryRepository.findAll().size();
 
@@ -124,6 +126,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void createEntryWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = entryRepository.findAll().size();
 
@@ -143,6 +146,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void checkTitleIsRequired() throws Exception {
         int databaseSizeBeforeTest = entryRepository.findAll().size();
         // set the field null
@@ -161,6 +165,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void checkContentIsRequired() throws Exception {
         int databaseSizeBeforeTest = entryRepository.findAll().size();
         // set the field null
@@ -179,6 +184,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void checkDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = entryRepository.findAll().size();
         // set the field null
@@ -213,6 +219,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void getEntry() throws Exception {
         // Initialize the database
         entryRepository.saveAndFlush(entry);
@@ -229,6 +236,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void getNonExistingEntry() throws Exception {
         // Get the entry
         restEntryMockMvc.perform(get("/api/entries/{id}", Long.MAX_VALUE))
@@ -237,6 +245,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void updateEntry() throws Exception {
         // Initialize the database
         entryRepository.saveAndFlush(entry);
@@ -267,6 +276,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void updateNonExistingEntry() throws Exception {
         int databaseSizeBeforeUpdate = entryRepository.findAll().size();
 
@@ -285,6 +295,7 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void deleteEntry() throws Exception {
         // Initialize the database
         entryRepository.saveAndFlush(entry);

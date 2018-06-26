@@ -100,6 +100,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void createBlog() throws Exception {
         int databaseSizeBeforeCreate = blogRepository.findAll().size();
 
@@ -119,6 +120,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void createBlogWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = blogRepository.findAll().size();
 
@@ -138,6 +140,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void checkNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = blogRepository.findAll().size();
         // set the field null
@@ -156,6 +159,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void checkHandleIsRequired() throws Exception {
         int databaseSizeBeforeTest = blogRepository.findAll().size();
         // set the field null
@@ -190,6 +194,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void getBlog() throws Exception {
         // Initialize the database
         blogRepository.saveAndFlush(blog);
@@ -213,6 +218,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void updateBlog() throws Exception {
         // Initialize the database
         blogRepository.saveAndFlush(blog);
@@ -241,6 +247,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void updateNonExistingBlog() throws Exception {
         int databaseSizeBeforeUpdate = blogRepository.findAll().size();
 
@@ -259,6 +266,7 @@ public class BlogResourceIntTest {
 
     @Test
     @Transactional
+    @WithMockUser
     public void deleteBlog() throws Exception {
         // Initialize the database
         blogRepository.saveAndFlush(blog);

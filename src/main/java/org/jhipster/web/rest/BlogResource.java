@@ -75,7 +75,8 @@ public class BlogResource {
         if (blog.getId() == null) {
             return createBlog(blog);
         }
-        if (!blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+        if (blog.getUser() != null &&
+            !blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         Blog result = blogRepository.save(blog);
@@ -108,10 +109,11 @@ public class BlogResource {
     public ResponseEntity<?> getBlog(@PathVariable Long id) {
         log.debug("REST request to get Blog : {}", id);
         Blog blog = blogRepository.findOne(id);
-        if (!blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+        if (blog != null && blog.getUser() != null &&
+            !blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
-        return ResponseUtil.wrapOrNotFound(Optional.of(blog));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(blog));
     }
 
 
@@ -123,8 +125,13 @@ public class BlogResource {
      */
     @DeleteMapping("/blogs/{id}")
     @Timed
-    public ResponseEntity<Void> deleteBlog(@PathVariable Long id) {
+    public ResponseEntity<?> deleteBlog(@PathVariable Long id) {
         log.debug("REST request to delete Blog : {}", id);
+        Blog blog = blogRepository.findOne(id);
+        if (blog != null && blog.getUser() != null &&
+            !blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
         blogRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
