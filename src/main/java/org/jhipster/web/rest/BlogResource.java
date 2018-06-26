@@ -1,21 +1,21 @@
 package org.jhipster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.jhipster.domain.Blog;
-
 import org.jhipster.repository.BlogRepository;
+import org.jhipster.security.SecurityUtils;
 import org.jhipster.web.rest.errors.BadRequestAlertException;
 import org.jhipster.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -45,10 +45,13 @@ public class BlogResource {
      */
     @PostMapping("/blogs")
     @Timed
-    public ResponseEntity<Blog> createBlog(@Valid @RequestBody Blog blog) throws URISyntaxException {
+    public ResponseEntity<?> createBlog(@Valid @RequestBody Blog blog) throws URISyntaxException {
         log.debug("REST request to save Blog : {}", blog);
         if (blog.getId() != null) {
             throw new BadRequestAlertException("A new blog cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if (!blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         Blog result = blogRepository.save(blog);
         return ResponseEntity.created(new URI("/api/blogs/" + result.getId()))
@@ -67,10 +70,13 @@ public class BlogResource {
      */
     @PutMapping("/blogs")
     @Timed
-    public ResponseEntity<Blog> updateBlog(@Valid @RequestBody Blog blog) throws URISyntaxException {
+    public ResponseEntity<?> updateBlog(@Valid @RequestBody Blog blog) throws URISyntaxException {
         log.debug("REST request to update Blog : {}", blog);
         if (blog.getId() == null) {
             return createBlog(blog);
+        }
+        if (!blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         Blog result = blogRepository.save(blog);
         return ResponseEntity.ok()
@@ -90,6 +96,7 @@ public class BlogResource {
         return blogRepository.findByUserIsCurrentUser();
     }
 
+
     /**
      * GET  /blogs/:id : get the "id" blog.
      *
@@ -98,11 +105,15 @@ public class BlogResource {
      */
     @GetMapping("/blogs/{id}")
     @Timed
-    public ResponseEntity<Blog> getBlog(@PathVariable Long id) {
+    public ResponseEntity<?> getBlog(@PathVariable Long id) {
         log.debug("REST request to get Blog : {}", id);
         Blog blog = blogRepository.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(blog));
+        if (!blog.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        return ResponseUtil.wrapOrNotFound(Optional.of(blog));
     }
+
 
     /**
      * DELETE  /blogs/:id : delete the "id" blog.

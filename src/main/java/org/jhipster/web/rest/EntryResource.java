@@ -51,10 +51,13 @@ public class EntryResource {
      */
     @PostMapping("/entries")
     @Timed
-    public ResponseEntity<Entry> createEntry(@Valid @RequestBody Entry entry) throws URISyntaxException {
+    public ResponseEntity<?> createEntry(@Valid @RequestBody Entry entry) throws URISyntaxException {
         log.debug("REST request to save Entry : {}", entry);
         if (entry.getId() != null) {
             throw new BadRequestAlertException("A new entry cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if (!entry.getBlog().getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         Entry result = entryRepository.save(entry);
         return ResponseEntity.created(new URI("/api/entries/" + result.getId()))
@@ -73,8 +76,11 @@ public class EntryResource {
      */
     @PutMapping("/entries")
     @Timed
-    public ResponseEntity<Entry> updateEntry(@Valid @RequestBody Entry entry) throws URISyntaxException {
+    public ResponseEntity<?> updateEntry(@Valid @RequestBody Entry entry) throws URISyntaxException {
         log.debug("REST request to update Entry : {}", entry);
+        if (!entry.getBlog().getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
         if (entry.getId() == null) {
             return createEntry(entry);
         }
@@ -107,10 +113,13 @@ public class EntryResource {
      */
     @GetMapping("/entries/{id}")
     @Timed
-    public ResponseEntity<Entry> getEntry(@PathVariable Long id) {
+    public ResponseEntity<?> getEntry(@PathVariable Long id) {
         log.debug("REST request to get Entry : {}", id);
         Entry entry = entryRepository.findOneWithEagerRelationships(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(entry));
+        if (!entry.getBlog().getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin().orElse(""))) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+        return ResponseUtil.wrapOrNotFound(Optional.of(entry));
     }
 
     /**
