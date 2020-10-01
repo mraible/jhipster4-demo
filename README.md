@@ -1,7 +1,7 @@
-# blog
+# Blog of The Project -
 This application was generated using JHipster 4.14.3, you can find documentation and help at [http://www.jhipster.tech/documentation-archive/v4.14.3](http://www.jhipster.tech/documentation-archive/v4.14.3).
 
-## Development
+## Development -
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
@@ -147,7 +147,7 @@ Then run:
 
 For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
-## Continuous Integration (optional)
+## Continuous Integration (optional part) -
 
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
